@@ -73,7 +73,7 @@ public class HangmanPanel extends JPanel {
         private JButton skipButton;
         //private JButton clickButton;
         //private JLabel clickCounter;
-        private JLabel dateLabel;
+        //private JLabel dateLabel;
         private JLabel scoreDispay;
         //private JLabel playerNameFrame;
         //private JTextField playerNameInput;
@@ -281,9 +281,9 @@ public class HangmanPanel extends JPanel {
             skipButton.setBounds(490, 25, 75, 22);
 
             
-            dateLabel.setText("Put Date here"); // TODO: Add date
-            this.add(dateLabel);
-            dateLabel.setBounds(447, 10, 120, 16);
+            //dateLabel.setText("Put Date here"); // TODO: Add date
+            //this.add(dateLabel);
+            //dateLabel.setBounds(447, 10, 120, 16);
 
             scoreDispay.setText("Score: " + playerScore);
             this.add(scoreDispay);
