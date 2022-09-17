@@ -4,12 +4,9 @@
  */
 package swingprojectv1.pkg0;
 
-import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Frame;
-import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
@@ -24,7 +21,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
@@ -97,45 +93,20 @@ public class HangmanPanel extends JPanel {
         private int numOfWrongGuesss = 0;
         private int playerScore = 100;
         private ImageIcon backGround;
-        
+        private JLabel clockLabel;
        
         
         public HangmanPanel(String imageFile, MainFrame mainFrame) throws IOException {
             this.mainFrame = mainFrame;
             this.backGround = new ImageIcon(imageFile);
             startGameLogic();
-            mainFrame.add(new ClockPane(), BorderLayout.NORTH);
             this.initComponents();
         }
-    
-        public class ClockPane extends JPanel {
-            private JLabel clock = new JLabel();
-            public ClockPane() {
-                setLayout(new FlowLayout(FlowLayout.RIGHT));
-                time();
-                add(clock);
-                Timer timer = new Timer(500, new ActionListener() {
-                  @Override
-                  public void actionPerformed(ActionEvent e) {
-                        time();
-                    }
-                });
-                timer.setRepeats(true);
-                timer.setCoalesce(true);
-                timer.setInitialDelay(0);
-                timer.start();
-            }
-            public void time() {
-                clock.setText(DateFormat.getDateTimeInstance().format(new Date()));
-            }
-        
-        }
-        
+            
         /**
          * Starts the game at any time, resetting any previously established vars to null or empty
          */
         public void startGameLogic() {
-            System.out.println("Starting Game Logic");
             this.wordToGuess = this.randomWordGenerator();
             this.textSlots = new JLabel[this.wordToGuess.length() + 1];
             this.textSlotIcons = new JLabel[this.wordToGuess.length() + 1];
@@ -148,7 +119,6 @@ public class HangmanPanel extends JPanel {
          * Initialize the buttons and labels, set properties, and add them to the screen
          */
         private void initComponents() {
-            System.out.println("Staring init process");
             JLabel imageLabel = new JLabel(backGround);
             imageLabel.setBounds(0, 0, 600, 400);
             this.add(imageLabel);
@@ -187,9 +157,8 @@ public class HangmanPanel extends JPanel {
             // </editor-fold>  
             
             this.skipButton = new JButton();
-            this.dateLabel = new JLabel();
             this.scoreDispay = new JLabel();
-            
+            this.clockLabel = new JLabel();
             // Window Things
             setLayout(null);
             
@@ -250,6 +219,12 @@ public class HangmanPanel extends JPanel {
             
             alphaButtonBackspace.setEnabled(false);
             
+            Timer timer = new Timer(500, new ActionListener() {
+                public void actionPerformed(ActionEvent event) {
+                    time();
+                }
+            });
+                                   
             // Event Handlers for Non-AlphaButtons
             alphaButtonBackspace.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent event) {
@@ -280,6 +255,13 @@ public class HangmanPanel extends JPanel {
             this.add(skipButton);
             skipButton.setBounds(490, 25, 75, 22);
 
+            time();
+            this.add(clockLabel);
+            clockLabel.setBounds(390, 5, 250, 22);
+            timer.setRepeats(true);
+            timer.setCoalesce(true);
+            timer.setInitialDelay(0);
+            timer.start();
             
             //dateLabel.setText("Put Date here"); // TODO: Add date
             //this.add(dateLabel);
@@ -287,7 +269,7 @@ public class HangmanPanel extends JPanel {
 
             scoreDispay.setText("Score: " + playerScore);
             this.add(scoreDispay);
-            scoreDispay.setBounds(10, 10, 120, 16);
+            scoreDispay.setBounds(10, 5, 120, 16);
             
             // Mouse Things
             this.add(alphabetPanel);
@@ -314,49 +296,54 @@ public class HangmanPanel extends JPanel {
             super.paintComponent(g);
             Font gameFont = new Font("Sans-Serif", Font.PLAIN, 16);
             
-            super.paintComponent(g);
+            int xAdjustment = 150;
+            
             Graphics2D screen2D = (Graphics2D) g;
-            screen2D.drawLine(70, 60, 130, 60);         
-            screen2D.drawLine(70, 60, 70, 80);
-            screen2D.drawLine(130, 60, 130, 170);
-            screen2D.drawLine(60, 170, 160, 170);
+            screen2D.drawLine(70 + xAdjustment, 60, 130 + xAdjustment, 60);         
+            screen2D.drawLine(70 + xAdjustment, 60, 70 + xAdjustment, 80);
+            screen2D.drawLine(130 + xAdjustment, 60, 130 + xAdjustment, 170);
+            screen2D.drawLine(60 + xAdjustment, 170, 160 + xAdjustment, 170);
             
             if (playerScore == 90) {
-                screen2D.drawOval(60, 80, 20, 20);
+                screen2D.drawOval(60 + xAdjustment, 80, 20, 20);
             }
             if (playerScore == 80) {
-                screen2D.drawOval(60, 80, 20, 20);
-                screen2D.drawOval(60, 100, 20, 40);
+                screen2D.drawOval(60 + xAdjustment, 80, 20, 20);
+                screen2D.drawOval(60 + xAdjustment, 100, 20, 40);
             }
             if (playerScore == 70) {
-                screen2D.drawOval(60, 80, 20, 20);
-                screen2D.drawOval(60, 100, 20, 40);
-                screen2D.drawLine(58, 115, 48, 130);
+                screen2D.drawOval(60 + xAdjustment, 80, 20, 20);
+                screen2D.drawOval(60 + xAdjustment, 100, 20, 40);
+                screen2D.drawLine(58 + xAdjustment, 115, 48 + xAdjustment, 130);
             }
             if (playerScore == 60) {
-                screen2D.drawOval(60, 80, 20, 20);
-                screen2D.drawOval(60, 100, 20, 40);
-                screen2D.drawLine(58, 115, 48, 130);
-                screen2D.drawLine(82, 115, 92, 130);
+                screen2D.drawOval(60 + xAdjustment, 80, 20, 20);
+                screen2D.drawOval(60 + xAdjustment, 100, 20, 40);
+                screen2D.drawLine(58 + xAdjustment, 115, 48 + xAdjustment, 130);
+                screen2D.drawLine(82 + xAdjustment, 115, 92 + xAdjustment, 130);
             }
             if (playerScore == 50) {
-                screen2D.drawOval(60, 80, 20, 20);
-                screen2D.drawOval(60, 100, 20, 40);
-                screen2D.drawLine(58, 115, 48, 130);
-                screen2D.drawLine(82, 115, 92, 130);
-                screen2D.drawLine(65, 140, 55, 160);
+                screen2D.drawOval(60 + xAdjustment, 80, 20, 20);
+                screen2D.drawOval(60 + xAdjustment, 100, 20, 40);
+                screen2D.drawLine(58 + xAdjustment, 115, 48 + xAdjustment, 130);
+                screen2D.drawLine(82 + xAdjustment, 115, 92 + xAdjustment, 130);
+                screen2D.drawLine(65 + xAdjustment, 140, 55 + xAdjustment, 160);
             }
             if (playerScore == 40) {
-                screen2D.drawOval(60, 80, 20, 20);
-                screen2D.drawOval(60, 100, 20, 40);
-                screen2D.drawLine(58, 115, 48, 130);
-                screen2D.drawLine(82, 115, 92, 130);
-                screen2D.drawLine(65, 140, 55, 160);
-                screen2D.drawLine(75, 140, 85, 160);
+                screen2D.drawOval(60 + xAdjustment, 80, 20, 20);
+                screen2D.drawOval(60 + xAdjustment, 100, 20, 40);
+                screen2D.drawLine(58 + xAdjustment, 115, 48 + xAdjustment, 130);
+                screen2D.drawLine(82 + xAdjustment, 115, 92 + xAdjustment, 130);
+                screen2D.drawLine(65 + xAdjustment, 140, 55 + xAdjustment, 160);
+                screen2D.drawLine(75 + xAdjustment, 140, 85 + xAdjustment, 160);
             }
             
             // Rect to hold alphabet
           
+        }
+        
+        private void time() {
+            clockLabel.setText(DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.MEDIUM).format(new Date()));
         }
         
         /**
@@ -436,9 +423,9 @@ public class HangmanPanel extends JPanel {
 
                         // numOfSlotsSet++;
                         alphaHelper.disableButton(button);
-                        System.out.println("The number of slots set is now " + this.numOfSlotsSet);
+                        //System.out.println("The number of slots set is now " + this.numOfSlotsSet);
                     } else {
-                        System.out.println("No more letter slots, all filled in. The Word was " + this.wordToGuess + "(With length of + " + this.wordToGuess.length() + ". Number of slots set: " + this.numOfSlotsSet);
+                       // System.out.println("No more letter slots, all filled in. The Word was " + this.wordToGuess + "(With length of + " + this.wordToGuess.length() + ". Number of slots set: " + this.numOfSlotsSet);
                     }
                     
                 }
@@ -471,6 +458,21 @@ public class HangmanPanel extends JPanel {
             mainFrame.revalidate();
         }
         
+        private void delayEndScreen() {
+            Timer endTimer = new Timer(3000, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent event) {
+                    try {
+                        addEndGamePanel();
+                    } catch (IOException e) {
+                        
+                    }
+                }
+            });
+            endTimer.setRepeats(false);
+            endTimer.start();
+        }
+        
         private void addEndGamePanel(String mesaage) throws IOException {
             mainFrame.remove(this.mainFrame.hangmanPanel);
             
@@ -498,17 +500,17 @@ pharmacy, climbing
             wordBank[2] = "NURSE";
             wordBank[3] = "PHARMACY";
             wordBank[4] = "CLIMBING";
-            wordBank[5] = "BRONCO";
-            wordBank[6] = "POMONA";
-            wordBank[7] = "SWING";
-            wordBank[8] = "JAVA";
-            wordBank[9] = "SANS";
+            wordBank[5] = "ABSTRACT";
+            wordBank[6] = "CEMENTERY";
+            wordBank[7] = "NURSE";
+            wordBank[8] = "PHARMACY";
+            wordBank[9] = "CLIMBING";
             int randomInt = (int)(Math.random() * 10);
             if (!(randomInt > 10 || randomInt < 0)) {
-                System.out.println("Chose " + wordBank[randomInt] + " as the word");
+                //System.out.println("Chose " + wordBank[randomInt] + " as the word");
                 return wordBank[randomInt];
             } else {
-                System.out.println("Chose " + wordBank[randomInt - 1] + " as the word");
+                //System.out.println("Chose " + wordBank[randomInt - 1] + " as the word");
                 return wordBank[randomInt - 1];
             }
         }
@@ -608,6 +610,7 @@ pharmacy, climbing
                 this.addEndGamePanel();
                 // this.mainFrame.addEndScreen();
             }
+            this.repaint();
         }
         
         public int getNumberOfWrongGuess() {
