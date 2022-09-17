@@ -7,18 +7,13 @@ package swingprojectv1.pkg0;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JToggleButton;
-import javax.swing.SwingUtilities;
 
 /**
  *
@@ -28,6 +23,8 @@ public class MainFrame extends Frame implements WindowListener, ActionListener {
 
     SplashPanel sp;
     HomePanel hp;
+    HangmanPanel hangmanPanel;
+    EndScreenPanel endScreen;
 
     public MainFrame(String title) {
         addWindowListener(this);
@@ -39,7 +36,7 @@ public class MainFrame extends Frame implements WindowListener, ActionListener {
 
     // Displays Splash screen 
     public void addSplashPanel() throws IOException {
-        sp = new SplashPanel("..\\Assets\\Splash.jpg");
+        sp = new SplashPanel(null);
         sp.setForeground(Color.WHITE);
         sp.getPreferredSize();
         add(sp);
@@ -48,11 +45,30 @@ public class MainFrame extends Frame implements WindowListener, ActionListener {
     }
 
     // Displays the home screen
-    public void addHomePanel() throws IOException {
-        hp = new HomePanel("..\\Assets\\homeGif.gif");
+    public void addHomePanel(Frame mainFrame) throws IOException {
+        hp = new HomePanel(null, this);
         hp.getPreferredSize();
         add(hp);
         hp.setVisible(true);
+        this.repaint();
+        this.revalidate();
+    }
+    
+    public void reAddHomePanel(Frame mainFrame) throws IOException {
+        
+        this.remove(hangmanPanel);
+        this.addHomePanel(mainFrame);
+        this.hangmanPanel = null;
+    }
+    
+    public void addGameScreen() throws IOException {
+        this.remove(hp);
+       hangmanPanel = new HangmanPanel(null, this);
+       hangmanPanel.getPreferredSize();
+       add(hangmanPanel);
+       hangmanPanel.setVisible(true);
+       this.repaint();
+       this.revalidate();
     }
 
     @Override
@@ -103,7 +119,7 @@ class SplashPanel extends JPanel {
     private Image backgroundImg;
 
     public SplashPanel(String fileName) throws IOException {
-        backgroundImg = ImageIO.read(new File(fileName));
+        backgroundImg = null;//ImageIO.read(new File(fileName));
     }
 
     @Override
@@ -145,8 +161,14 @@ class SplashPanel extends JPanel {
 
 class HomePanel extends JPanel {
 
-    public HomePanel(String fileName) throws IOException {
+    private HangmanPanel gameScreen;
+    private final MainFrame mainFrame;
+    
+    public HomePanel(String fileName, MainFrame mainFrame) {
 
+        // CTS - needed so that future screens can access the main one without creating a new screen
+        this.mainFrame = mainFrame;
+        
         // Absolute positioning...
         setLayout(null);
 
@@ -157,6 +179,14 @@ class HomePanel extends JPanel {
         JButton startButton = new JButton("Start");
         JButton highScoresButton = new JButton("Highscores");
         JButton creditsButton = new JButton("Credits");
+        
+        // CTS - Adding ActionListners to Buttons
+        startButton.addActionListener(new ActionListener() {
+            
+            public void actionPerformed(ActionEvent event) {
+                onStartButtonClicked(event);
+            }
+        });
 
         // Location and sizing for components
         imageLabel.setBounds(0, 0, 600, 400);
@@ -180,4 +210,33 @@ class HomePanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
     }
+    
+    public void onStartButtonClicked(ActionEvent event) {
+        try {
+            // Add any ther options here, like maybe listen for a key press for secrets (:
+            System.out.println("Clicked on Start button");
+            mainFrame.addGameScreen();
+        } catch (IOException ex) {
+            Logger.getLogger(HomePanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
+    /*
+    // Displays the home screen
+    public void addHomePanel() throws IOException {
+        hp = new HomePanel(null);
+        hp.getPreferredSize();
+        add(hp);
+        hp.setVisible(true);
+    }
+    
+    
+    public void addGameScreen() throws IOException {
+        
+       gameScreen = new HangmanPanel(null, this.mainFrame);
+       gameScreen.getPreferredSize();
+       add(gameScreen);
+       gameScreen.setVisible(true);
+    }*/
 }

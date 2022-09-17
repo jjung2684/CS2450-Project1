@@ -11,8 +11,6 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
 /**
@@ -40,7 +38,8 @@ public class SwingProjectV1 {
             public void actionPerformed(ActionEvent arg0) {
                 mf.sp.setVisible(false);
                 try {
-                    mf.addHomePanel();
+                    mf.addHomePanel(mf);
+                   mf.remove(mf.sp);
                 } catch (IOException ex) {
                     Logger.getLogger(SwingProjectV1.class.getName()).log(Level.SEVERE, null, ex);
                 }
