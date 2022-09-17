@@ -8,6 +8,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -22,6 +23,8 @@ public class EndScreenPanel extends JPanel {
     private JButton restartButton;
     private JLabel userScoreField;
     private JLabel gameOverField;
+    private JLabel imageLabel;
+    private ImageIcon backgroundIcon;
     
     private int score = 0;
     private String gameEndMessage = "Game Over!";
@@ -30,7 +33,7 @@ public class EndScreenPanel extends JPanel {
     public EndScreenPanel(String imageFile, MainFrame mainFrame, int playerScore, String message) throws IOException {
         this.mainFrame = mainFrame;
         this.score = playerScore;
-        
+        this.backgroundIcon = new ImageIcon(imageFile);
         this.gameEndMessage = message;
         this.initComponents();
     }
@@ -40,8 +43,12 @@ public class EndScreenPanel extends JPanel {
         this.restartButton = new JButton();
         this.userScoreField = new JLabel();
         this.gameOverField = new JLabel();
+        this.imageLabel = new JLabel();
         
         setLayout(null);
+        
+        imageLabel.setBounds(0, 0, 600, 400);
+        add(imageLabel);
         
         gameOverField.setFont(new Font("Sans-Serif", Font.BOLD, 50));
         gameOverField.setText(this.gameEndMessage);

@@ -7,9 +7,11 @@ package swingprojectv1.pkg0;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -36,7 +38,7 @@ public class MainFrame extends Frame implements WindowListener, ActionListener {
 
     // Displays Splash screen 
     public void addSplashPanel() throws IOException {
-        sp = new SplashPanel(null);
+        sp = new SplashPanel("..\\Assets\\Splash.jpg");
         sp.setForeground(Color.WHITE);
         sp.getPreferredSize();
         add(sp);
@@ -46,7 +48,7 @@ public class MainFrame extends Frame implements WindowListener, ActionListener {
 
     // Displays the home screen
     public void addHomePanel(Frame mainFrame) throws IOException {
-        hp = new HomePanel(null, this);
+        hp = new HomePanel("..\\Assets\\homeGif.gif", this);
         hp.getPreferredSize();
         add(hp);
         hp.setVisible(true);
@@ -63,7 +65,7 @@ public class MainFrame extends Frame implements WindowListener, ActionListener {
     
     public void addGameScreen() throws IOException {
         this.remove(hp);
-       hangmanPanel = new HangmanPanel(null, this);
+       hangmanPanel = new HangmanPanel(null, this); // Add image path where null is
        hangmanPanel.getPreferredSize();
        add(hangmanPanel);
        hangmanPanel.setVisible(true);
@@ -119,7 +121,7 @@ class SplashPanel extends JPanel {
     private Image backgroundImg;
 
     public SplashPanel(String fileName) throws IOException {
-        backgroundImg = null;//ImageIO.read(new File(fileName));
+        backgroundImg = ImageIO.read(new File(fileName));
     }
 
     @Override

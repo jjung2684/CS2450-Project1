@@ -16,6 +16,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -90,11 +91,13 @@ public class HangmanPanel extends JPanel {
         private int numOfSlotsSet = 0; // Number of Slots that have a letter filled
         private int numOfWrongGuesss = 0;
         private int playerScore = 100;
+        private ImageIcon backGround;
         
        
         
         public HangmanPanel(String imageFile, MainFrame mainFrame) throws IOException {
             this.mainFrame = mainFrame;
+            this.backGround = new ImageIcon(imageFile);
             startGameLogic();
             this.initComponents();
         }
@@ -117,6 +120,9 @@ public class HangmanPanel extends JPanel {
          */
         private void initComponents() {
             System.out.println("Staring init process");
+            JLabel imageLabel = new JLabel(backGround);
+            imageLabel.setBounds(0, 0, 600, 400);
+            this.add(imageLabel);
                         
              // <editor-fold defaultstate="collapsed" desc="Keyboard Buttons">
             this.alphabetPanel = new JPanel();
@@ -247,11 +253,11 @@ public class HangmanPanel extends JPanel {
 
             
             dateLabel.setText("Put Date here"); // TODO: Add date
-            add(dateLabel);
+            this.add(dateLabel);
             dateLabel.setBounds(447, 10, 120, 16);
 
             scoreDispay.setText("Score: " + playerScore);
-            add(scoreDispay);
+            this.add(scoreDispay);
             scoreDispay.setBounds(10, 10, 120, 16);
             
             // Mouse Things
@@ -385,6 +391,7 @@ public class HangmanPanel extends JPanel {
         private void addEndGamePanel() throws IOException {
             mainFrame.remove(this.mainFrame.hangmanPanel);
             
+            // add background image where null is
             this.endScreen = new EndScreenPanel(null, mainFrame, playerScore, "Game Over!");
             this.endScreen.getPreferredSize();
             this.mainFrame.add(this.endScreen);
