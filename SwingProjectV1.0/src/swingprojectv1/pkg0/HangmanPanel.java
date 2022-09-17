@@ -4,14 +4,18 @@
  */
 package swingprojectv1.pkg0;
 
+import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Frame;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -22,6 +26,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.Timer;
 
 /**
  *
@@ -99,7 +104,31 @@ public class HangmanPanel extends JPanel {
             this.mainFrame = mainFrame;
             this.backGround = new ImageIcon(imageFile);
             startGameLogic();
+            mainFrame.add(new ClockPane(), BorderLayout.NORTH);
             this.initComponents();
+        }
+    
+        public class ClockPane extends JPanel {
+            private JLabel clock = new JLabel();
+            public ClockPane() {
+                setLayout(new FlowLayout(FlowLayout.RIGHT));
+                time();
+                add(clock);
+                Timer timer = new Timer(500, new ActionListener() {
+                  @Override
+                  public void actionPerformed(ActionEvent e) {
+                        time();
+                    }
+                });
+                timer.setRepeats(true);
+                timer.setCoalesce(true);
+                timer.setInitialDelay(0);
+                timer.start();
+            }
+            public void time() {
+                clock.setText(DateFormat.getDateTimeInstance().format(new Date()));
+            }
+        
         }
         
         /**
@@ -284,6 +313,47 @@ public class HangmanPanel extends JPanel {
             // From MainFrame.SplashPanel
             super.paintComponent(g);
             Font gameFont = new Font("Sans-Serif", Font.PLAIN, 16);
+            
+            super.paintComponent(g);
+            Graphics2D screen2D = (Graphics2D) g;
+            screen2D.drawLine(70, 60, 130, 60);         
+            screen2D.drawLine(70, 60, 70, 80);
+            screen2D.drawLine(130, 60, 130, 170);
+            screen2D.drawLine(60, 170, 160, 170);
+            
+            if (playerScore == 90) {
+                screen2D.drawOval(60, 80, 20, 20);
+            }
+            if (playerScore == 80) {
+                screen2D.drawOval(60, 80, 20, 20);
+                screen2D.drawOval(60, 100, 20, 40);
+            }
+            if (playerScore == 70) {
+                screen2D.drawOval(60, 80, 20, 20);
+                screen2D.drawOval(60, 100, 20, 40);
+                screen2D.drawLine(58, 115, 48, 130);
+            }
+            if (playerScore == 60) {
+                screen2D.drawOval(60, 80, 20, 20);
+                screen2D.drawOval(60, 100, 20, 40);
+                screen2D.drawLine(58, 115, 48, 130);
+                screen2D.drawLine(82, 115, 92, 130);
+            }
+            if (playerScore == 50) {
+                screen2D.drawOval(60, 80, 20, 20);
+                screen2D.drawOval(60, 100, 20, 40);
+                screen2D.drawLine(58, 115, 48, 130);
+                screen2D.drawLine(82, 115, 92, 130);
+                screen2D.drawLine(65, 140, 55, 160);
+            }
+            if (playerScore == 40) {
+                screen2D.drawOval(60, 80, 20, 20);
+                screen2D.drawOval(60, 100, 20, 40);
+                screen2D.drawLine(58, 115, 48, 130);
+                screen2D.drawLine(82, 115, 92, 130);
+                screen2D.drawLine(65, 140, 55, 160);
+                screen2D.drawLine(75, 140, 85, 160);
+            }
             
             // Rect to hold alphabet
           
