@@ -27,6 +27,8 @@ public class MainFrame extends Frame implements WindowListener, ActionListener {
     HomePanel hp;
     HangmanPanel hangmanPanel;
     EndScreenPanel endScreen;
+    HighScoresPanel highScoresPanel;
+    
 
     public MainFrame(String title) {
         addWindowListener(this);
@@ -38,7 +40,7 @@ public class MainFrame extends Frame implements WindowListener, ActionListener {
 
     // Displays Splash screen 
     public void addSplashPanel() throws IOException {
-        sp = new SplashPanel("..\\Assets\\Splash.jpg");
+        sp = new SplashPanel("/Users/tommy/CS2450-Project1/Assets/Splash.jpg");
         sp.setForeground(Color.WHITE);
         sp.getPreferredSize();
         add(sp);
@@ -48,7 +50,7 @@ public class MainFrame extends Frame implements WindowListener, ActionListener {
 
     // Displays the home screen
     public void addHomePanel(Frame mainFrame) throws IOException {
-        hp = new HomePanel("..\\Assets\\homeGif.gif", this);
+        hp = new HomePanel("/Users/tommy/CS2450-Project1/Assets/homeGif.gif", this);
         hp.getPreferredSize();
         add(hp);
         hp.setVisible(true);
@@ -65,12 +67,22 @@ public class MainFrame extends Frame implements WindowListener, ActionListener {
     
     public void addGameScreen() throws IOException {
         this.remove(hp);
-       hangmanPanel = new HangmanPanel(null, this); // Add image path where null is
-       hangmanPanel.getPreferredSize();
-       add(hangmanPanel);
-       hangmanPanel.setVisible(true);
-       this.repaint();
-       this.revalidate();
+        hangmanPanel = new HangmanPanel(null, this); // Add image path where null is
+        hangmanPanel.getPreferredSize();
+        add(hangmanPanel);
+        hangmanPanel.setVisible(true);
+        this.repaint();
+        this.revalidate();
+    }
+    
+    public void addHighScoresScreen() throws IOException {
+        this.remove(hp);
+        highScoresPanel = new HighScoresPanel(this);
+        highScoresPanel.getPreferredSize();
+        add(highScoresPanel);
+        highScoresPanel.setVisible(true);
+        this.repaint();
+        this.revalidate();
     }
 
     @Override
@@ -161,34 +173,35 @@ class SplashPanel extends JPanel {
     }
 }
 
-class HomePanel extends JPanel {
+class HomePanel extends JPanel implements ActionListener {
 
-    private HangmanPanel gameScreen;
     private final MainFrame mainFrame;
+    
+    // Components
+    ImageIcon imageIcon;
+    JLabel imageLabel;
+    JButton startButton = new JButton();
+    JButton highScoresButton = new JButton();
+    JButton creditsButton = new JButton();
     
     public HomePanel(String fileName, MainFrame mainFrame) {
 
         // CTS - needed so that future screens can access the main one without creating a new screen
         this.mainFrame = mainFrame;
         
+        // Initialize components
+        imageIcon = new ImageIcon(fileName);
+        imageLabel = new JLabel(imageIcon);
+        startButton = new JButton("Start");
+        highScoresButton = new JButton("High Scores");
+        creditsButton = new JButton("Credits");
+        
         // Absolute positioning...
         setLayout(null);
-
-        // Creating components
-        ImageIcon imageIcon
-                = new ImageIcon(fileName);
-        JLabel imageLabel = new JLabel(imageIcon);
-        JButton startButton = new JButton("Start");
-        JButton highScoresButton = new JButton("Highscores");
-        JButton creditsButton = new JButton("Credits");
         
         // CTS - Adding ActionListners to Buttons
-        startButton.addActionListener(new ActionListener() {
-            
-            public void actionPerformed(ActionEvent event) {
-                onStartButtonClicked(event);
-            }
-        });
+        startButton.addActionListener(this);
+        highScoresButton.addActionListener(this);
 
         // Location and sizing for components
         imageLabel.setBounds(0, 0, 600, 400);
@@ -213,15 +226,34 @@ class HomePanel extends JPanel {
         super.paintComponent(g);
     }
     
+    @Override
+    public void actionPerformed(ActionEvent event) {
+        if (event.getSource() == startButton) {
+            onStartButtonClicked(event); // start button clicked
+        } else if (event.getSource() == highScoresButton){
+            onHighScoresButtonClicked(event); // high scores button clicked
+        }        
+    }
+    
     public void onStartButtonClicked(ActionEvent event) {
         try {
-            // Add any ther options here, like maybe listen for a key press for secrets (:
+            // Add any other options here, like maybe listen for a key press for secrets (:
             System.out.println("Clicked on Start button");
             mainFrame.addGameScreen();
         } catch (IOException ex) {
             Logger.getLogger(HomePanel.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+    }
+    
+    public void onHighScoresButtonClicked(ActionEvent event) {
+        try {
+            // Add any other options here, like maybe listen for a key press for secrets (:
+            System.out.println("Clicked on High Scores button");
+            mainFrame.addHighScoresScreen();
+        } catch (IOException ex) {
+            Logger.getLogger(HighScoresPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     /*
