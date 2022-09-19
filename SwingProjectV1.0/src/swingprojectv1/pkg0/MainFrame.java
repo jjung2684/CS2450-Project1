@@ -28,6 +28,7 @@ public class MainFrame extends Frame implements WindowListener, ActionListener {
     HangmanPanel hangmanPanel;
     EndScreenPanel endScreen;
     HighScoresPanel highScoresPanel;
+    CreditsPanel creditsPanel;
     
 
     public MainFrame(String title) {
@@ -40,7 +41,7 @@ public class MainFrame extends Frame implements WindowListener, ActionListener {
 
     // Displays Splash screen 
     public void addSplashPanel() throws IOException {
-        sp = new SplashPanel("/Users/tommy/CS2450-Project1/Assets/Splash.jpg");
+        sp = new SplashPanel("/Users/lyhoang/NetBeansProjects/CS2450-Project1/Assets/Splash.jpg");
         sp.setForeground(Color.WHITE);
         sp.getPreferredSize();
         add(sp);
@@ -50,7 +51,7 @@ public class MainFrame extends Frame implements WindowListener, ActionListener {
 
     // Displays the home screen
     public void addHomePanel(Frame mainFrame) throws IOException {
-        hp = new HomePanel("/Users/tommy/CS2450-Project1/Assets/homeGif.gif", this);
+        hp = new HomePanel("/Users/lyhoang/NetBeansProjects/CS2450-Project1/Assets/homeGif.gif", this);
         hp.getPreferredSize();
         add(hp);
         hp.setVisible(true);
@@ -81,6 +82,16 @@ public class MainFrame extends Frame implements WindowListener, ActionListener {
         highScoresPanel.getPreferredSize();
         add(highScoresPanel);
         highScoresPanel.setVisible(true);
+        this.repaint();
+        this.revalidate();
+    }
+    
+        public void addCreditsScreen() throws IOException {
+        this.remove(hp);
+        creditsPanel = new CreditsPanel(this);
+        creditsPanel.getPreferredSize();
+        add(creditsPanel);
+        creditsPanel.setVisible(true);
         this.repaint();
         this.revalidate();
     }
@@ -202,6 +213,7 @@ class HomePanel extends JPanel implements ActionListener {
         // CTS - Adding ActionListners to Buttons
         startButton.addActionListener(this);
         highScoresButton.addActionListener(this);
+        creditsButton.addActionListener(this);
 
         // Location and sizing for components
         imageLabel.setBounds(0, 0, 600, 400);
@@ -232,7 +244,9 @@ class HomePanel extends JPanel implements ActionListener {
             onStartButtonClicked(event); // start button clicked
         } else if (event.getSource() == highScoresButton){
             onHighScoresButtonClicked(event); // high scores button clicked
-        }        
+        } else if (event.getSource() == creditsButton){
+            onCreditsButtonClicked(event); // high scores button clicked
+        }
     }
     
     public void onStartButtonClicked(ActionEvent event) {
@@ -245,7 +259,7 @@ class HomePanel extends JPanel implements ActionListener {
         }
         
     }
-    
+   
     public void onHighScoresButtonClicked(ActionEvent event) {
         try {
             // Add any other options here, like maybe listen for a key press for secrets (:
@@ -255,6 +269,17 @@ class HomePanel extends JPanel implements ActionListener {
             Logger.getLogger(HighScoresPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void onCreditsButtonClicked(ActionEvent event) {
+        try {
+            // Add any other options here, like maybe listen for a key press for secrets (:
+            System.out.println("Clicked on Credits button");
+            mainFrame.addCreditsScreen();
+        } catch (IOException ex) {
+            Logger.getLogger(CreditsPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     
     /*
     // Displays the home screen
