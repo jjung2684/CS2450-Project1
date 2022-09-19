@@ -20,6 +20,7 @@ import java.util.Map;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
@@ -605,6 +606,7 @@ pharmacy, climbing
             // Guess has been updated already
             // Use this to handle what happens when a letter is incorrectly guessed
             this.playerScore= this.playerScore - 10;
+            JOptionPane.showMessageDialog(mainFrame, "Wrong letter");
             updatePlayerScore();
             if (this.numOfWrongGuesss >= 6) {
                 this.addEndGamePanel();
