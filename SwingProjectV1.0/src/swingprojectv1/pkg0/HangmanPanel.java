@@ -206,7 +206,7 @@ public class HangmanPanel extends JPanel {
                     label.setFocusable(false);
                     label.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
                     this.add(label);
-                    label.setBounds(xPosForIcon, universalY + 60, 30, 2);
+                    label.setBounds(xPosForIcon, universalY + 40, 30, 2);
                     xPosForIcon += 60 + 5;
                 }
             }
@@ -274,7 +274,9 @@ public class HangmanPanel extends JPanel {
             
             // Mouse Things
             this.add(alphabetPanel);
-            alphabetPanel.setBounds(50, universalY + 75, 500, 125);           
+            alphabetPanel.setSize(new Dimension(600, 150));
+            alphabetPanel.setLocation(0, universalY + 50);
+//            alphabetPanel.setBounds(50, universalY + 75, 500, 125);           
         }
 
         // Frame Things
