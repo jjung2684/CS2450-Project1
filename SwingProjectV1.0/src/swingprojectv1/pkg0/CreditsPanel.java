@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -37,7 +38,7 @@ public class CreditsPanel extends JPanel implements ActionListener {
     
     public CreditsPanel (MainFrame mainFrame) throws IOException {
         backButton = new JButton("Back");
-        image = ImageIO.read(new File("/Users/lyhoang/NetBeansProjects/CS2450-Project1/Assets/Credit.jpg"));
+        image = ImageIO.read(new URL("https://res.cloudinary.com/dt2autub1/image/upload/v1663640188/assets/Credit_vfg2k1.jpg"));
         //Image img = ImageIO.read(new File("background.jpg")
         this.mainFrame = mainFrame;
         this.setBackground(Color.white);
@@ -78,7 +79,7 @@ public class CreditsPanel extends JPanel implements ActionListener {
         g2.drawString("CarlTheSpiny, 123456789", 150, 120);
         g2.drawString("Jacob Jung, 010812009", 150, 150);
         g2.drawString("Ly Hoang Rivera, 014384968", 150, 180);
-        g2.drawString("sbvrr, 123456789", 150, 210);
+        g2.drawString("spencer barrett, 011727157", 150, 210);
         g2.drawString("Tommy James, 014478542", 150, 240);
         
 
