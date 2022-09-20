@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -41,7 +42,7 @@ public class MainFrame extends Frame implements WindowListener, ActionListener {
 
     // Displays Splash screen 
     public void addSplashPanel() throws IOException {
-        sp = new SplashPanel("/Users/lyhoang/NetBeansProjects/CS2450-Project1/Assets/Splash.jpg");
+        sp = new SplashPanel("https://res.cloudinary.com/dt2autub1/image/upload/v1663638043/assets/Splash_x6te3l.jpg");
         sp.setForeground(Color.WHITE);
         sp.getPreferredSize();
         add(sp);
@@ -51,7 +52,7 @@ public class MainFrame extends Frame implements WindowListener, ActionListener {
 
     // Displays the home screen
     public void addHomePanel(Frame mainFrame) throws IOException {
-        hp = new HomePanel("/Users/lyhoang/NetBeansProjects/CS2450-Project1/Assets/homeGif.gif", this);
+        hp = new HomePanel(new URL("https://res.cloudinary.com/dt2autub1/image/upload/v1663639833/assets/ezgif.com-gif-maker_1_olgpkx.gif"), this);
         hp.getPreferredSize();
         add(hp);
         hp.setVisible(true);
@@ -144,7 +145,7 @@ class SplashPanel extends JPanel {
     private Image backgroundImg;
 
     public SplashPanel(String fileName) throws IOException {
-        backgroundImg = ImageIO.read(new File(fileName));
+        backgroundImg = ImageIO.read(new URL(fileName));
     }
 
     @Override
@@ -195,14 +196,14 @@ class HomePanel extends JPanel implements ActionListener {
     JButton highScoresButton = new JButton();
     JButton creditsButton = new JButton();
     
-    public HomePanel(String fileName, MainFrame mainFrame) {
+    public HomePanel(URL url, MainFrame mainFrame) {
 
         // CTS - needed so that future screens can access the main one without creating a new screen
         this.mainFrame = mainFrame;
         
         // Initialize components
-        imageIcon = new ImageIcon(fileName);
-        imageLabel = new JLabel(imageIcon);
+//        imageIcon = new ImageIcon(fileName);
+        imageLabel = new JLabel(new ImageIcon(url));
         startButton = new JButton("Start");
         highScoresButton = new JButton("High Scores");
         creditsButton = new JButton("Credits");
@@ -217,9 +218,9 @@ class HomePanel extends JPanel implements ActionListener {
 
         // Location and sizing for components
         imageLabel.setBounds(0, 0, 600, 400);
-        startButton.setBounds(475, 250, 100, 25);
-        highScoresButton.setBounds(475, 280, 100, 25);
-        creditsButton.setBounds(475, 310, 100, 25);
+        startButton.setBounds(450, 250, 125, 25);
+        highScoresButton.setBounds(450, 280, 125, 25);
+        creditsButton.setBounds(450, 310, 125, 25);
 
         add(startButton);
         add(highScoresButton);
