@@ -16,6 +16,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -40,7 +41,7 @@ public class HighScoresPanel extends JPanel implements ActionListener {
     
     public HighScoresPanel (MainFrame mainFrame) throws IOException {
         backButton = new JButton("Back");
-        image = ImageIO.read(new File("/Users/tommy/CS2450-Project1/Assets/Hangman-0.png"));
+        image = ImageIO.read(new URL("https://res.cloudinary.com/dt2autub1/image/upload/v1663640334/assets/Hangman-0_yrs3l0.png"));
         
         this.mainFrame = mainFrame;
         this.setBackground(Color.white);
