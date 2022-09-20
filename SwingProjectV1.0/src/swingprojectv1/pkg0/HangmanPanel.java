@@ -502,7 +502,7 @@ pharmacy, climbing
             wordBank[3] = "PHARMACY";
             wordBank[4] = "CLIMBING";
             wordBank[5] = "ABSTRACT";
-            wordBank[6] = "CEMENTERY";
+            wordBank[6] = "CEMETERY";
             wordBank[7] = "NURSE";
             wordBank[8] = "PHARMACY";
             wordBank[9] = "CLIMBING";
