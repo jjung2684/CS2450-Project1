@@ -1,4 +1,4 @@
-# CS2450-Project1
+# CS2450-Project1 V1.0
 Github repo URL: https://github.com/jjung2684/CS2450-Project1
 
 ## Authors:
