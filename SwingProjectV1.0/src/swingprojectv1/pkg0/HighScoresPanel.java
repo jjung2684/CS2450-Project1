@@ -1,13 +1,13 @@
 /***************************************************************  
 *  file: HighScoresPanel.class  
-*  author: 
+*  author: Tommy James
 *  class: CS   2450.01
 *  
 *  assignment: Project 1.0  
 *  date last modified: 9/16/2022
 *  
-*  purpose: This class shows the high scores of the player, currently not supporting
-* recording the player score from games, just hard coded strings/scores
+*  purpose: This class shows the high scores of the players. The scores in this
+*  version are hard coded and not actual scores.
 *  
 ****************************************************************/  
 package swingprojectv1.pkg0;
@@ -84,11 +84,11 @@ public class HighScoresPanel extends JPanel implements ActionListener {
 
         // draw strings
         g2.drawString("High Scores", 350, 50);
-        g2.drawString("CarlTheSpiny: 354678", 300, 120);
-        g2.drawString("Jacob J: 354678", 300, 150);
-        g2.drawString("Cat9: 354678", 300, 180);
-        g2.drawString("sbvrr: 354678", 300, 210);
-        g2.drawString("apollo: 354678", 300, 240);
+        g2.drawString("CarlTheSpiny: 500", 300, 120);
+        g2.drawString("Jacob J: 460", 300, 150);
+        g2.drawString("Cat9: 420", 300, 180);
+        g2.drawString("sbvrr: 390", 300, 210);
+        g2.drawString("apollo: 380", 300, 240);
         
         // draw image
         g2.drawImage(image, 0, 0, 250, 300, this);
