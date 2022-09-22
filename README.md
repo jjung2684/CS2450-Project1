@@ -9,3 +9,5 @@ Miguel Geronimo - Hangman Screen and End Screen
 Jacob Jung - Hangman graphics
 
 Ly Hoang Rivera - Credits screen
+
+Tommy James - High Scores Screen
