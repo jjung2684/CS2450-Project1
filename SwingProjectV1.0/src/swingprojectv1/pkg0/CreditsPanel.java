@@ -1,6 +1,6 @@
 /***************************************************************  
 *  file: CreditsPanel.class  
-*  author: L. Hyoang 
+*  author: Ly Hoang 
 *  class: CS   2450.01
 *  
 *  assignment: Project 1.0  
