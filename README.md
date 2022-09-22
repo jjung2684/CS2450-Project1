@@ -1,4 +1,5 @@
 # CS2450-Project1
 
 ## Authors:
-Spencer Barrett -  splash screen & menu screen
+Spencer Barrett -  Splash screen & Menu screen
+Miguel Geronimo - Hangman Screen and End Screen
