@@ -1,7 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+/***************************************************************  
+*  file: HighScoresPanel.class  
+*  author: 
+*  class: CS   2450.01
+*  
+*  assignment: Project 1.0  
+*  date last modified: 9/16/2022
+*  
+*  purpose: This class shows the high scores of the player, currently not supporting
+* recording the player score from games, just hard coded strings/scores
+*  
+****************************************************************/  
 package swingprojectv1.pkg0;
 
 import java.awt.Color;

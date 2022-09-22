@@ -1,4 +1,15 @@
-/* ly hoang */
+/***************************************************************  
+*  file: CreditsPanel.class  
+*  author: L. Hyoang 
+*  class: CS   2450.01
+*  
+*  assignment: Project 1.0  
+*  date last modified: 9/16/2022
+*  
+*  purpose: This class has the credits panel for the hangman game,
+* displaying our names and bronco IDS
+*  
+****************************************************************/  
 package swingprojectv1.pkg0;
 
 import java.awt.Color;

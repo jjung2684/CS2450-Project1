@@ -1,7 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+/***************************************************************  
+*  file: EndScreenPanel.class  
+*  author: M. Geronimo & Co. 
+*  class: CS   2450.01
+*  
+*  assignment: Project 1.0  
+*  date last modified: 9/16/2022
+*  
+*  purpose: This class has the end screen for the main game,
+* displaying the game score and redirecting the player to the home screen
+*  
+****************************************************************/  
 package swingprojectv1.pkg0;
 
 import java.awt.Font;

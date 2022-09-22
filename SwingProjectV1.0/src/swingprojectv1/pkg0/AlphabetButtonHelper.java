@@ -1,7 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+/***************************************************************  
+*  file: AlphabetButtonHelper.class  
+*  author: M. Geronimo  
+*  class: CS   2450.01
+*  
+*  assignment: Project 1.0  
+*  date last modified: 9/16/2022
+*  
+*  purpose: This class has methods to help do the hangman game logic,
+* specifically, it helps manage whether buttons are enabled and adding letters
+* to the player guess
+*  
+****************************************************************/  
 package swingprojectv1.pkg0;
 
 import java.awt.event.ActionEvent;

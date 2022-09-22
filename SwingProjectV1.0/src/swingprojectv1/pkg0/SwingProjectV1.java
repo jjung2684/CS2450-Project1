@@ -1,8 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+/***************************************************************  
+*  file: SwingProjectV1.class  
+*  author: S. Barret & Co.
+*  class: CS   2450.01
+*  
+*  assignment: Project 1.0  
+*  date last modified: 9/16/2022
+*  
+*  purpose: This class has the main method for this project. Has the timer for stalling
+* the splash screen and initializes the splash, home, and game panels
+*  
+****************************************************************/  
 package swingprojectv1.pkg0;
 
 import java.awt.Dimension;

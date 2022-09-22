@@ -1,7 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+/***************************************************************  
+*  file: HangmanPanel.class  
+*  author: M. Geronimo, J. Jung & Co.
+*  class: CS   2450.01
+*  
+*  assignment: Project 1.0  
+*  date last modified: 9/20/2022
+*  
+*  purpose: This class has the main game logic. Initializes the
+* buttons, handles their logic, adds image icons, adds the hangman
+* graphic, displays time, shows player score, and has the skip button
+*  
+****************************************************************/  
 package swingprojectv1.pkg0;
 
 import java.awt.Component;
