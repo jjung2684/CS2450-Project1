@@ -27,12 +27,13 @@ import javax.swing.JPanel;
  */
 public class EndScreenPanel extends JPanel {
     
-    private JButton endButton;
+    private JButton nextGameButton;
     private JButton restartButton;
     private JLabel userScoreField;
     private JLabel gameOverField;
     private JLabel imageLabel;
     private ImageIcon backgroundIcon;
+    private ColorGameScreen colorGame;
     
     private int score = 0;
     private String gameEndMessage = "Game Over!";
@@ -47,11 +48,15 @@ public class EndScreenPanel extends JPanel {
     }
     
     private void initComponents() {
-        this.endButton = new JButton();
+        this.nextGameButton = new JButton();
         this.restartButton = new JButton();
         this.userScoreField = new JLabel();
         this.gameOverField = new JLabel();
         this.imageLabel = new JLabel();
+        //this.colorGame = new ColorGameScreen(this.mainFrame);
+        
+        // color game 
+        this.colorGame = new ColorGameScreen(this.mainFrame);
         
         setLayout(null);
         
@@ -68,19 +73,19 @@ public class EndScreenPanel extends JPanel {
         add(userScoreField);
         userScoreField.setBounds(210, 200, 300, 60);
         
-        endButton.setFont(new Font("Sans-Serif", Font.PLAIN, 35));
-        endButton.setText("End");       
-        endButton.addActionListener(new ActionListener() {
+        nextGameButton.setFont(new Font("Sans-Serif", Font.PLAIN, 35));
+        nextGameButton.setText("Next Game");       
+        nextGameButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 try {
-                    returnToHomeScreen();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                        nextGame();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
             }
         });
-        add(endButton);
-        endButton.setBounds(150, 275, 300, 60);
+        add(nextGameButton);
+        nextGameButton.setBounds(150, 275, 300, 60);
         
         //restartButton.setFont(mainFrame.hangmanPanel.getFont());
         //restartButton.setText("Restart");
@@ -94,5 +99,14 @@ public class EndScreenPanel extends JPanel {
         mainFrame.repaint();
         this.revalidate();
         this.mainFrame.reAddHomePanel(mainFrame);
+    }
+    
+    private void nextGame() throws IOException {
+        this.mainFrame.remove(this);
+            
+        this.mainFrame.add(colorGame);
+
+        this.mainFrame.repaint();
+        this.mainFrame.revalidate();
     }
 }

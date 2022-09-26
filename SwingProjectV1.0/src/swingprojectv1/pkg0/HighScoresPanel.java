@@ -12,6 +12,7 @@
 ****************************************************************/  
 package swingprojectv1.pkg0;
 
+// imports
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -58,6 +59,7 @@ public class HighScoresPanel extends JPanel implements ActionListener {
         backButton = new JButton("Back");
         image = ImageIO.read(new URL("https://res.cloudinary.com/dt2autub1/image/upload/v1663640334/assets/Hangman-0_yrs3l0.png"));
         
+        // initialize mainFrame
         this.mainFrame = mainFrame;
         this.setBackground(Color.white);
         this.setLayout(null);

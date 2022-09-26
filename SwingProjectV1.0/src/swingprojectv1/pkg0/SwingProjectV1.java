@@ -35,7 +35,7 @@ public class SwingProjectV1 {
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
             // Create Frame for game window
-            MainFrame mf = new MainFrame("Hangman");
+            MainFrame mf = new MainFrame("CPP GUI Games");
             mf.setSize(new Dimension(600, 400));
             mf.addSplashPanel();
             mf.setVisible(true);

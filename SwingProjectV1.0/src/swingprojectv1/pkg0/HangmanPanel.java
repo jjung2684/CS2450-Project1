@@ -95,6 +95,7 @@ public class HangmanPanel extends JPanel {
         // Helper for button methods
         private AlphabetButtonHelper alphaHelper = new AlphabetButtonHelper();
         private EndScreenPanel endScreen;
+        private ColorGameScreen colorGame;
         
         private String hangmanPlayerInputField; // The Text Slot
         private String wordToGuess; // The Word the player will guess
@@ -132,6 +133,8 @@ public class HangmanPanel extends JPanel {
             JLabel imageLabel = new JLabel(backGround);
             imageLabel.setBounds(0, 0, 600, 400);
             this.add(imageLabel);
+            
+            colorGame = new ColorGameScreen(this.mainFrame);
                         
              // <editor-fold defaultstate="collapsed" desc="Keyboard Buttons">
             this.alphabetPanel = new JPanel();
@@ -445,12 +448,17 @@ public class HangmanPanel extends JPanel {
         }
         
         /**
-         * Ends the game and returns to the home screen
+         * Adds the color game panel when the skip game button is clicked
          * @throws IOException 
          */
         private void skipGame() throws IOException {
+            this.mainFrame.remove(this.mainFrame.hangmanPanel);
+            
             this.playerScore = 0;
-            this.addEndGamePanel();
+            this.mainFrame.add(colorGame);
+            
+            this.mainFrame.repaint();
+            this.mainFrame.revalidate();
         }
         
         /**
@@ -505,7 +513,7 @@ public class HangmanPanel extends JPanel {
             String[] wordBank = new String[10];
             /*
             abstract, cemetery, nurse, 
-pharmacy, climbing
+            pharmacy, climbing
             */
             wordBank[0] = "ABSTRACT";
             wordBank[1] = "CEMENTERY";
