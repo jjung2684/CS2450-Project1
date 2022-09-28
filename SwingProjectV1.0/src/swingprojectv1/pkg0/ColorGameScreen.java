@@ -15,7 +15,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.RandomAccessFile;
 import java.util.Random;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -257,6 +266,8 @@ public class ColorGameScreen extends JPanel implements ActionListener {
     private void addEndGamePanel() throws IOException {
         mainFrame.remove(this);
         
+        compareHighScore();
+        
         EndScreenPanel endScreen = new EndScreenPanel(null, mainFrame, userScore, "Game Over!", "Restart");
         mainFrame.add(endScreen);
         endScreen.setVisible(true);
@@ -450,6 +461,30 @@ public class ColorGameScreen extends JPanel implements ActionListener {
             prepareNextRound();
         }
         this.repaint();
+    }
+    
+    public void compareHighScore() throws FileNotFoundException, IOException {
+        
+        File file = new File("..\\score.txt");
+        FileInputStream inFile = new FileInputStream(file);          
+        DataInputStream dInputStream = new DataInputStream(inFile);
+        BufferedReader breader = new BufferedReader(new InputStreamReader(dInputStream));
+       
+        // Since the first line contains the highest score, only extract the first line
+        String firstLine = breader.readLine();    
+        
+        // From the extracted line, get rid of anything except numbers (to be parsed into a high score)
+        String tokens = firstLine.replaceAll("[^0-9]", "");
+        
+        // parse the string high score into int high score
+        int highScore = Integer.parseInt(tokens);
+        
+        // Display a message after comparing the scores. Nothing happens when the user score is lower than the high score
+        if (userScore > highScore) {
+            JOptionPane.showMessageDialog(mainFrame, "You set a new high score with "+ userScore + " points!");
+            
+        }
+        
     }
     
 }
