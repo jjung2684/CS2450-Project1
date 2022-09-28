@@ -29,6 +29,7 @@ public class EndScreenPanel extends JPanel {
     
     private JButton nextGameButton;
     private JButton restartButton;
+    private JButton skipGameButton;
     private JLabel userScoreField;
     private JLabel gameOverField;
     private JLabel imageLabel;
@@ -37,19 +38,27 @@ public class EndScreenPanel extends JPanel {
     
     private int score = 0;
     private String gameEndMessage = "Game Over!";
+    private String nextGameButtonMessage = "Next Game";
     private MainFrame mainFrame;
   
-    public EndScreenPanel(String imageFile, MainFrame mainFrame, int playerScore, String message) throws IOException {
+    public EndScreenPanel(String imageFile, MainFrame mainFrame, int playerScore, String gameOverMessage) throws IOException {
         this.mainFrame = mainFrame;
         this.score = playerScore;
         this.backgroundIcon = new ImageIcon(imageFile);
-        this.gameEndMessage = message;
+        this.gameEndMessage = gameOverMessage;
         this.initComponents();
     }
     
+    public EndScreenPanel(String imageFile, MainFrame mainFrame, int playerScore, String gameOverMessage, String nextGameMessage) throws IOException {
+        this(imageFile, mainFrame, playerScore, gameOverMessage);
+        this.nextGameButtonMessage = nextGameMessage;
+    }
+    
     private void initComponents() {
+        int adjustY = -100;
         this.nextGameButton = new JButton();
         this.restartButton = new JButton();
+        this.skipGameButton = new JButton();
         this.userScoreField = new JLabel();
         this.gameOverField = new JLabel();
         this.imageLabel = new JLabel();
@@ -66,15 +75,15 @@ public class EndScreenPanel extends JPanel {
         gameOverField.setFont(new Font("Sans-Serif", Font.BOLD, 50));
         gameOverField.setText(this.gameEndMessage);
         add(gameOverField);
-        gameOverField.setBounds(150, 60, 300, 60);
+        gameOverField.setBounds(150, 150 + adjustY, 300, 60);
         
         userScoreField.setFont(new Font("Sans-Serif", Font.PLAIN, 25));
         userScoreField.setText("Your Score: " + this.score);
         add(userScoreField);
-        userScoreField.setBounds(210, 200, 300, 60);
+        userScoreField.setBounds(210, 200 + adjustY, 300, 60);
         
         nextGameButton.setFont(new Font("Sans-Serif", Font.PLAIN, 35));
-        nextGameButton.setText("Next Game");       
+        nextGameButton.setText(nextGameButtonMessage);       
         nextGameButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 try {
@@ -85,7 +94,21 @@ public class EndScreenPanel extends JPanel {
             }
         });
         add(nextGameButton);
-        nextGameButton.setBounds(150, 275, 300, 60);
+        nextGameButton.setBounds(150, 275 + adjustY, 300, 60);
+        
+        skipGameButton.setFont(new Font("Sans-Serif", Font.PLAIN, 35));
+        skipGameButton.setText("To Home");       
+        skipGameButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                try {
+                        returnToHomeScreen();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+            }
+        });
+        add(skipGameButton);
+        skipGameButton.setBounds(150, 335 + adjustY, 300, 60);
         
         //restartButton.setFont(mainFrame.hangmanPanel.getFont());
         //restartButton.setText("Restart");
