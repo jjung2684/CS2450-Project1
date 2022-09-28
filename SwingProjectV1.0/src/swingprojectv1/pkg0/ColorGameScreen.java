@@ -384,10 +384,10 @@ public class ColorGameScreen extends JPanel implements ActionListener {
     private void setNextColorPrompt() {
         do {
             System.out.println("Choosing a color.");
-            this.currentColorToGuess = COLOR_PROMPTS[random.nextInt(0, 5)];
+            this.currentColorToGuess = COLOR_PROMPTS[random.nextInt(5)];
         } while (this.previousColor == currentColorToGuess);
         System.out.println("Chose a color.");
-        this.colorPrompt.setText(COLOR_PROMPTS_TEXT[random.nextInt(0, 5)]);
+        this.colorPrompt.setText(COLOR_PROMPTS_TEXT[random.nextInt(5)]);
         this.colorPrompt.setForeground(currentColorToGuess);
         this.previousColor = currentColorToGuess;
     }
