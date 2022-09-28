@@ -25,7 +25,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.RandomAccessFile;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Random;
+import java.util.Set;
+import java.util.TreeMap;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -36,62 +41,63 @@ import javax.swing.JPanel;
  * @author tommy
  */
 public class ColorGameScreen extends JPanel implements ActionListener {
+
     private final MainFrame mainFrame;
     private JPanel gamePanel;
     private JLabel colorPrompt;
     private JButton skipButton;
     private JLabel scoreLabel;
-    
+
     private Rectangle colorPromptRect;
     private Rectangle scoreRect;
     private Rectangle skipRect;
-    
+
     private Rectangle yellowOvalRect;
     private Rectangle redOvalRect;
     private Rectangle greenOvalRect;
     private Rectangle blueOvalRect;
     private Rectangle pinkOvalRect;
-    
+
     private int userScore;
     private int currentRound;
     private int numberOfEntries;
     private Color currentColorToGuess;
     private Color previousColor;
-    
+
     private Rectangle[] keyComponentRects;
     private Rectangle[] ovalComponentRects;
     private final String[] COLOR_PROMPTS_TEXT = {"Red", "Green", "Yellow", "Pink", "Blue"};
     private final Color[] COLOR_PROMPTS = {Color.RED, Color.GREEN, Color.YELLOW, Color.PINK, Color.BLUE};
     private final int MAX_ROUNDS = 5;
     private Random random = new Random();
-        
+
     public ColorGameScreen(MainFrame mainFrame) {
-        
+
         // initialize mainFrame
         this.mainFrame = mainFrame;
         this.setBackground(Color.white);
         this.setLayout(null);
         addColorGamePanel();
     }
-    
+
     public void addColorGamePanel() {
-            // remove current panel
-            
-            // initialize color game 
-            this.keyComponentRects = new Rectangle[4];
-            this.ovalComponentRects = new Rectangle[5];
-            this.previousColor = Color.BLACK;
-            this.getPreferredSize();
-            this.initComponents();
-            this.setVisible(true);
-            this.repaint();
-            
-        }
-    
+        // remove current panel
+
+        // initialize color game 
+        this.keyComponentRects = new Rectangle[4];
+        this.ovalComponentRects = new Rectangle[5];
+        this.previousColor = Color.BLACK;
+        this.getPreferredSize();
+        this.initComponents();
+        this.setVisible(true);
+        this.repaint();
+
+    }
+
     public Dimension getPreferredSize() {
         return new Dimension(600, 400);
     }
-    
+
     private void initComponents() {
         // Init Initial rects for ovals
         yellowOvalRect = new Rectangle(50, 150, 100, 100);
@@ -99,29 +105,29 @@ public class ColorGameScreen extends JPanel implements ActionListener {
         greenOvalRect = new Rectangle(250, 250, 100, 100);
         blueOvalRect = new Rectangle(350, 250, 100, 100);
         pinkOvalRect = new Rectangle(450, 150, 100, 100);
-        
+
         // Set bounds for the key components
         colorPromptRect = new Rectangle(250, 50, 100, 100);
         skipRect = new Rectangle(490, 25, 75, 22);
         scoreRect = new Rectangle(10, 5, 120, 16);
-        
+
         // Create the Key Components
         scoreLabel = new JLabel();
         colorPrompt = new JLabel();
         skipButton = new JButton();
-        
+
         this.fillKeyRectMap();
         // Set Label text
         colorPrompt.setText("Waiting...");
         scoreLabel.setText("Score: " + userScore);
         skipButton.setText("Skip");
-        
+
         // Set font and initial color for text
         colorPrompt.setFont(new Font("Sans-Serif", Font.BOLD, 24));
         colorPrompt.setForeground(Color.BLACK);
-        
+
         prepareNextRound(); // Updates the Rects and the text
-        
+
         addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent event) {
                 try {
@@ -131,29 +137,29 @@ public class ColorGameScreen extends JPanel implements ActionListener {
                 }
             }
         });
-        
+
         skipButton.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent event) {
-                    try {
-                        skipGame();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+            public void actionPerformed(ActionEvent event) {
+                try {
+                    skipGame();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            });
-        
+            }
+        });
+
         // Add the key components
         this.add(colorPrompt);
         this.add(scoreLabel);
         this.add(skipButton);
-        
+
         colorPrompt.setBounds(colorPromptRect);
         scoreLabel.setBounds(scoreRect);
         skipButton.setBounds(skipRect);
-        
+
         // Randomize Pos
-        
     }
+
     /**
      * Fills the Oval and Rect maps to track location and bounds
      */
@@ -162,7 +168,7 @@ public class ColorGameScreen extends JPanel implements ActionListener {
         this.keyComponentRects[1] = this.scoreRect;
         this.keyComponentRects[2] = this.skipRect;
     }
-    
+
     private void fillOvalRectMap() {
         this.ovalComponentRects[0] = this.blueOvalRect;
         this.ovalComponentRects[1] = this.greenOvalRect;
@@ -171,38 +177,40 @@ public class ColorGameScreen extends JPanel implements ActionListener {
         this.ovalComponentRects[4] = this.yellowOvalRect;
         numberOfEntries = ovalComponentRects.length + 1;
     }
-    
+
     private void resetOvalMap() {
         this.ovalComponentRects = new Rectangle[5];
         numberOfEntries = 0;
     }
-    
+
     private boolean addRect(Rectangle[] rectArray, Rectangle rectIn) {
         boolean wasAdded = false;
         if (!(numberOfEntries == rectArray.length)) {
             rectArray[numberOfEntries] = rectIn;
-            
+
             System.out.println("Added a rectangle to slot:" + numberOfEntries);
             numberOfEntries++;
             wasAdded = true;
         }
         return wasAdded;
     }
-    
+
     /**
      * Update an oval using it's ID and passing it's updated rect
+     *
      * @param id
      * @param updatedRect
      * @return
-     * @throws IndexOutOfBoundsException 
+     * @throws IndexOutOfBoundsException
      */
     private void updateOval(int id, Rectangle updatedRect) throws IndexOutOfBoundsException {
         boolean result = false;
         this.keyComponentRects[id] = updatedRect;
     }
-    
+
     /**
-     * Update ovals by getting whatever rect they currently have. Also calls repaint()
+     * Update ovals by getting whatever rect they currently have. Also calls
+     * repaint()
      */
     private void updateOval() {
         this.ovalComponentRects[0] = this.blueOvalRect;
@@ -213,42 +221,44 @@ public class ColorGameScreen extends JPanel implements ActionListener {
         numberOfEntries = 5;
         repaint();
     }
-    
+
     /**
-     * Adds the ovals 
-     * @param g 
+     * Adds the ovals
+     *
+     * @param g
      */
     public void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
         super.paintComponent(g);
-        
+
         // yellow cirlcle
         g2.setColor(Color.yellow);
-        g2.fillOval((int)yellowOvalRect.getX(), (int)yellowOvalRect.getY(), (int)yellowOvalRect.getWidth(), (int)yellowOvalRect.getHeight());
-        
+        g2.fillOval((int) yellowOvalRect.getX(), (int) yellowOvalRect.getY(), (int) yellowOvalRect.getWidth(), (int) yellowOvalRect.getHeight());
+
         // red circle
         g2.setColor(Color.red);
-        g2.fillOval((int)redOvalRect.getX(), (int)redOvalRect.getY(), (int)redOvalRect.getWidth(), (int)redOvalRect.getHeight());
-        
+        g2.fillOval((int) redOvalRect.getX(), (int) redOvalRect.getY(), (int) redOvalRect.getWidth(), (int) redOvalRect.getHeight());
+
         // green circle
         g2.setColor(Color.green);
-        g2.fillOval((int)greenOvalRect.getX(), (int)greenOvalRect.getY(), (int)greenOvalRect.getWidth(), (int)greenOvalRect.getHeight());
-        
+        g2.fillOval((int) greenOvalRect.getX(), (int) greenOvalRect.getY(), (int) greenOvalRect.getWidth(), (int) greenOvalRect.getHeight());
+
         // blue circle
         g2.setColor(Color.blue);
-        g2.fillOval((int)blueOvalRect.getX(), (int)blueOvalRect.getY(), (int)blueOvalRect.getWidth(), (int)blueOvalRect.getHeight());
-        
+        g2.fillOval((int) blueOvalRect.getX(), (int) blueOvalRect.getY(), (int) blueOvalRect.getWidth(), (int) blueOvalRect.getHeight());
+
         // pink circle
         g2.setColor(Color.pink);
-        g2.fillOval((int)pinkOvalRect.getX(), (int)pinkOvalRect.getY(), (int)pinkOvalRect.getWidth(), (int)pinkOvalRect.getHeight());
-        
+        g2.fillOval((int) pinkOvalRect.getX(), (int) pinkOvalRect.getY(), (int) pinkOvalRect.getWidth(), (int) pinkOvalRect.getHeight());
+
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
     }
-    
+
     /**
      * Skip the current game (no matter the rounds) and go to the end screen
-     * @throws IOException 
+     *
+     * @throws IOException
      */
     private void skipGame() throws IOException {
         this.mainFrame.remove(this);
@@ -256,110 +266,121 @@ public class ColorGameScreen extends JPanel implements ActionListener {
         addEndGamePanel();
         mainFrame.repaint();
         mainFrame.revalidate();
-        
+
     }
-    
+
     /**
      * Adds the end screen
-     * @throws IOException 
+     *
+     * @throws IOException
      */
     private void addEndGamePanel() throws IOException {
         mainFrame.remove(this);
-        
+
         compareHighScore();
-        
+
         EndScreenPanel endScreen = new EndScreenPanel(null, mainFrame, userScore, "Game Over!", "Restart");
         mainFrame.add(endScreen);
         endScreen.setVisible(true);
-        
+
         mainFrame.repaint();
         mainFrame.revalidate();
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
     }
-    
+
     /**
      * Get the current color the player needs to click
-     * @return 
+     *
+     * @return
      */
     private Color getCurrentColorPrompt() {
         return this.colorPrompt.getForeground();
     }
-    
+
     /**
-     * Returns a rectangle with a random X pos and a random Y pos
-     * Prerequisite: The oval array is empty/null
-     * @param height 
-     * @param width 
-     * @return 
+     * Returns a rectangle with a random X pos and a random Y pos Prerequisite:
+     * The oval array is empty/null
+     *
+     * @param height
+     * @param width
+     * @return
      */
     private Rectangle getRandomRectangle(int width, int height) {
         // Game bounds: 400x600
-        
+
         Rectangle temp = new Rectangle(colorPromptRect); // Forces do-while to execute once and guards against null pointer exception
-        
-        
+
         do {
-            
+
             int randomX = random.nextInt(600); // limit potential x values to be between 0 to 400
             int randomY = random.nextInt(400);
-            
+
             temp = new Rectangle(randomX, randomY, width, height);
-        } while (isRectInKeyRects(temp) || isRectInOvalRects(temp) || !isRectInFrame(temp)); 
-            // If the rect overlpas any of the key components or an existing oval rect, try again for a better position
-            if (!addRect(ovalComponentRects, temp)) System.err.println("Could not add the rect to the oval array. Array could have been full.");
+        } while (isRectInKeyRects(temp) || isRectInOvalRects(temp) || !isRectInFrame(temp));
+        // If the rect overlpas any of the key components or an existing oval rect, try again for a better position
+        if (!addRect(ovalComponentRects, temp)) {
+            System.err.println("Could not add the rect to the oval array. Array could have been full.");
+        }
         return temp;
     }
-    
+
     private boolean isRectInFrame(Rectangle rectIn) {
         double rectHeightYCheck = rectIn.getY() + rectIn.getHeight();
         double recWidthXCheck = rectIn.getX() + rectIn.getWidth();
         boolean isInFrame = true;
-        if (rectHeightYCheck > mainFrame.getHeight() - 100 || rectHeightYCheck < 0)
+        if (rectHeightYCheck > mainFrame.getHeight() - 100 || rectHeightYCheck < 0) {
             isInFrame = false;
-        if (recWidthXCheck > mainFrame.getWidth() - 100 || recWidthXCheck < 0)
+        }
+        if (recWidthXCheck > mainFrame.getWidth() - 100 || recWidthXCheck < 0) {
             isInFrame = false;
+        }
         return isInFrame;
     }
-    
+
     /**
-     * If rect is inside any of the key rect components, return true. 
-     * Only return false in none of the rects contain the one in the argument
+     * If rect is inside any of the key rect components, return true. Only
+     * return false in none of the rects contain the one in the argument
+     *
      * @param rectIn
-     * @return 
+     * @return
      */
     private boolean isRectInKeyRects(Rectangle rectIn) {
         int overlapCount = 0;
         for (int id = 0; id < this.keyComponentRects.length - 1; id++) {
             if (keyComponentRects[id] != null) {
-                if (keyComponentRects[id].intersects(rectIn))
+                if (keyComponentRects[id].intersects(rectIn)) {
                     overlapCount++;
+                }
             }
         }
         return overlapCount > 0;
     }
-    
+
     /**
-     * Returns true if rect overlaps an exisitng oval rect. The passed rect should
-     * not already be in the list. 
+     * Returns true if rect overlaps an exisitng oval rect. The passed rect
+     * should not already be in the list.
+     *
      * @param rectIn
-     * @return 
+     * @return
      */
     private boolean isRectInOvalRects(Rectangle rectIn) {
         int overLapCount = 0;
         for (int id = 0; id < this.ovalComponentRects.length; id++) {
             if (ovalComponentRects[id] != null) { // If null entry, does not change the count
-                if (ovalComponentRects[id].intersects(rectIn))
+                if (ovalComponentRects[id].intersects(rectIn)) {
                     overLapCount++;
+                }
             }
         }
         return overLapCount > 0;
     }
-    
+
     /**
-     * Updates the rects, their refrences in the array, athe score, and picks the next color prompt
+     * Updates the rects, their references in the array, the score, and picks
+     * the next color prompt
      */
     private void prepareNextRound() {
         // Redefine ovals (not colors...)
@@ -375,11 +396,12 @@ public class ColorGameScreen extends JPanel implements ActionListener {
         updateScore();
         // Chose the nex color
         setNextColorPrompt();
-        
+
     }
-    
+
     /**
-     * Randomly choses a color from the color list and updates the text and it's font color
+     * Randomly chooses a color from the color list and updates the text and
+     * it's font color
      */
     private void setNextColorPrompt() {
         do {
@@ -391,7 +413,7 @@ public class ColorGameScreen extends JPanel implements ActionListener {
         this.colorPrompt.setForeground(currentColorToGuess);
         this.previousColor = currentColorToGuess;
     }
-    
+
     /**
      * Update the player score visual
      */
@@ -399,7 +421,7 @@ public class ColorGameScreen extends JPanel implements ActionListener {
         this.scoreLabel.setText("Score: " + this.userScore);
         repaint();
     }
-    
+
     private void handlePlayerInteraction(MouseEvent event) throws IOException {
         if (getOvalRectForPrompt().contains(event.getPoint())) {
             System.out.println("Clicked on an oval that is the correct color.");
@@ -411,7 +433,7 @@ public class ColorGameScreen extends JPanel implements ActionListener {
                 // At round 5...
                 addEndGamePanel();
             }
-            
+
         } else {
             for (int index = 0; index < ovalComponentRects.length; index++) {
                 if (ovalComponentRects[index] != null) {
@@ -427,7 +449,7 @@ public class ColorGameScreen extends JPanel implements ActionListener {
             }
         }
     }
-    
+
     private Rectangle getOvalRectForPrompt() {
         switch (this.currentColorToGuess.toString()) {
             case "java.awt.Color[r=255,g=0,b=0]": // Red
@@ -444,12 +466,13 @@ public class ColorGameScreen extends JPanel implements ActionListener {
                 System.out.println("Could not find a suitable rect for the " + currentColorToGuess.toString());
                 return null;
         }
-        
+
     }
-    
+
     /**
      * will handle when a color is picked incorrectly
-     * @throws IOException 
+     *
+     * @throws IOException
      */
     public void wrongColor() throws IOException {
         JOptionPane.showMessageDialog(mainFrame, "Wrong color!");
@@ -462,29 +485,82 @@ public class ColorGameScreen extends JPanel implements ActionListener {
         }
         this.repaint();
     }
-    
+
     public void compareHighScore() throws FileNotFoundException, IOException {
-        
+
         File file = new File("..\\score.txt");
-        FileInputStream inFile = new FileInputStream(file);          
+        FileInputStream inFile = new FileInputStream(file);
         DataInputStream dInputStream = new DataInputStream(inFile);
         BufferedReader breader = new BufferedReader(new InputStreamReader(dInputStream));
-       
-        // Since the first line contains the highest score, only extract the first line
-        String firstLine = breader.readLine();    
-        
-        // From the extracted line, get rid of anything except numbers (to be parsed into a high score)
-        String tokens = firstLine.replaceAll("[^0-9]", "");
-        
-        // parse the string high score into int high score
-        int highScore = Integer.parseInt(tokens);
-        
-        // Display a message after comparing the scores. Nothing happens when the user score is lower than the high score
-        if (userScore > highScore) {
-            JOptionPane.showMessageDialog(mainFrame, "You set a new high score with "+ userScore + " points!");
+        String userInitials = "";
+        String initialToChange = "";
+        Map<Integer, String> scores = new HashMap<>();
+
+        boolean changed = false;
+        int scoreToChange = 0;
+
+        //Parses file for initials and scores and puts into a Map(Initials, Scores)
+        for (int i = 0; i < 5; i++) {
+            String line = breader.readLine();
+            String num = line.replaceAll("[^0-9]", "");
+            String initials = line.replaceAll("[^A-Z]", "");
+
+            int score = Integer.parseInt(num);
             
+            //If score higher than lowest score, replaces lowest score
+            if (userScore > score && i == 4) {
+                scoreToChange = score;
+                score = userScore;
+                initialToChange = initials;
+                changed = true;
+            }
+            scores.put(score, initials);
         }
-        
+
+        // Display a message after comparing the scores. Nothing happens when the user score is lower than the lowest high score
+        if (changed == true) {
+            userInitials = JOptionPane.showInputDialog(mainFrame, "You set a new high score with " + userScore + " points!\nPlease enter in your intials below: ");
+            scores.replace(userScore, userInitials);
+            TreeMap<Integer, String> sorted = sortbykey(scores);
+            System.out.println(sorted);
+            // Get entry set of the TreeMap using entrySet
+            // method
+            Set<Map.Entry<Integer, String>> entrySet
+                    = sorted.entrySet();
+
+            // Convert entrySet to Array using toArray method
+            Map.Entry<Integer, String>[] entryArray
+                    = entrySet.toArray(
+                            new Map.Entry[entrySet.size()]);
+            
+            //Write changes to file
+            try {
+                FileWriter fw = new FileWriter(file);
+                for (int i = 4; i >= 0; i--) {
+                    fw.write(entryArray[i].getValue() + " " + entryArray[i].getKey().toString() + "\n");
+                }
+                fw.close();
+            } catch (IOException e) {
+                System.out.println("An error occurred.");
+                e.printStackTrace();
+
+            }
+
+        }
+
     }
-    
+
+    //Helper method to resort HashMap for rewrite
+    public TreeMap sortbykey(Map scores) {
+        // TreeMap to store values of HashMap
+        TreeMap<Integer, String> sorted = new TreeMap<>();
+
+        // Copy all data from hashMap into TreeMap
+        sorted.putAll(scores);
+
+        // Display the TreeMap which is naturally sorted
+        return sorted;
+
+    }
+
 }
