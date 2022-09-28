@@ -35,6 +35,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import java.util.stream.*;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -494,7 +496,7 @@ public class ColorGameScreen extends JPanel implements ActionListener {
         BufferedReader breader = new BufferedReader(new InputStreamReader(dInputStream));
         String userInitials = "";
         String initialToChange = "";
-        Map<Integer, String> scores = new HashMap<>();
+        Map<String, Integer> scores = new HashMap<>();
 
         boolean changed = false;
         int scoreToChange = 0;
@@ -508,28 +510,30 @@ public class ColorGameScreen extends JPanel implements ActionListener {
             int score = Integer.parseInt(num);
             
             //If score higher than lowest score, replaces lowest score
-            if (userScore > score && i == 4) {
+            if ((userScore > score && i == 4) && !changed) {
+               
                 scoreToChange = score;
                 score = userScore;
                 initialToChange = initials;
                 changed = true;
             }
-            scores.put(score, initials);
+            scores.put(initials, score);
         }
 
         // Display a message after comparing the scores. Nothing happens when the user score is lower than the lowest high score
         if (changed == true) {
             userInitials = JOptionPane.showInputDialog(mainFrame, "You set a new high score with " + userScore + " points!\nPlease enter in your intials below: ");
-            scores.replace(userScore, userInitials);
-            TreeMap<Integer, String> sorted = sortbykey(scores);
+            scores.remove(initialToChange);
+            scores.put(userInitials, userScore);
+            HashMap<String, Integer> sorted = sortByValue(scores);
             System.out.println(sorted);
             // Get entry set of the TreeMap using entrySet
             // method
-            Set<Map.Entry<Integer, String>> entrySet
+            Set<Map.Entry<String, Integer>> entrySet
                     = sorted.entrySet();
 
             // Convert entrySet to Array using toArray method
-            Map.Entry<Integer, String>[] entryArray
+            Map.Entry<String, Integer>[] entryArray
                     = entrySet.toArray(
                             new Map.Entry[entrySet.size()]);
             
@@ -549,18 +553,25 @@ public class ColorGameScreen extends JPanel implements ActionListener {
         }
 
     }
-
+    
+    
     //Helper method to resort HashMap for rewrite
-    public TreeMap sortbykey(Map scores) {
-        // TreeMap to store values of HashMap
-        TreeMap<Integer, String> sorted = new TreeMap<>();
-
-        // Copy all data from hashMap into TreeMap
-        sorted.putAll(scores);
-
-        // Display the TreeMap which is naturally sorted
-        return sorted;
-
+    public static HashMap<String, Integer>
+    sortByValue(Map<String, Integer> hm)
+    {
+        HashMap<String, Integer> temp
+            = hm.entrySet()
+                  .stream()
+                  .sorted((i1, i2)
+                              -> i1.getValue().compareTo(
+                                  i2.getValue()))
+                  .collect(Collectors.toMap(
+                      Map.Entry::getKey,
+                      Map.Entry::getValue,
+                      (e1, e2) -> e1, LinkedHashMap::new));
+ 
+        return temp;
     }
+
 
 }
