@@ -79,7 +79,7 @@ public class HighScoresPanel extends JPanel implements ActionListener {
         //highscoreLabel.setForeground(Color.GREEN);
         this.add(highscoreLabel);
         
-        FileInputStream inFile = new FileInputStream("..\\score.txt");          
+        FileInputStream inFile = new FileInputStream(".." + System.getProperty("file.separator") + "score.txt");          
         DataInputStream dis = new DataInputStream(inFile);
         BufferedReader breader = new BufferedReader(new InputStreamReader(dis));
         String strLine;

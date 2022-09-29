@@ -503,7 +503,7 @@ public class ColorGameScreen extends JPanel implements ActionListener {
 
     public void compareHighScore() throws FileNotFoundException, IOException {
 
-        File file = new File("..\\score.txt");
+        File file = new File(".." + System.getProperty("file.separator") + "score.txt");
         FileInputStream inFile = new FileInputStream(file);
         DataInputStream dInputStream = new DataInputStream(inFile);
         BufferedReader breader = new BufferedReader(new InputStreamReader(dInputStream));
