@@ -3,7 +3,7 @@
 *  author: M. Geronimo, J. Jung & Co.
 *  class: CS   2450.01
 *  
-*  assignment: Project 1.0  
+*  assignment: Project 1.1  
 *  date last modified: 9/20/2022
 *  
 *  purpose: This class has the main game logic. Initializes the

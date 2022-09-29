@@ -3,8 +3,8 @@
 *  author: S. Barrett & Co.
 *  class: CS   2450.01
 *  
-*  assignment: Project 1.0  
-*  date last modified: 9/19/2022
+*  assignment: Project 1.1  
+*  date last modified: 9/28/2022
 *  
 *  purpose: This class creates the main frame, has the methods for adding the 
 * splash and home screen, and their functionality (timer, buttons, backgrounds)

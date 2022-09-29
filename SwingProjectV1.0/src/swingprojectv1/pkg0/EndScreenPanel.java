@@ -3,7 +3,7 @@
 *  author: M. Geronimo & Co. 
 *  class: CS   2450.01
 *  
-*  assignment: Project 1.0  
+*  assignment: Project 1.1  
 *  date last modified: 9/16/2022
 *  
 *  purpose: This class has the end screen for the main game,

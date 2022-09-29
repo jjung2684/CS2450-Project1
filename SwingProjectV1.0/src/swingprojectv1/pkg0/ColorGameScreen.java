@@ -1,3 +1,16 @@
+/***************************************************************  
+*  file: ColorGameScreen.class  
+*  author: M. Geronimo & Co.
+*  class: CS   2450.01
+*  
+*  assignment: Project 1.1  
+*  date last modified: 9/28/2022
+*  
+*  purpose: This class has the main game logic for the color game.
+*  It initializes colored circles, shows player score, compares
+*  user score to the high score, and saves the new high score if need be.
+*  
+****************************************************************/ 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template

@@ -3,8 +3,8 @@
 *  author: Tommy James & Co.
 *  class: CS   2450.01
 *  
-*  assignment: Project 1.0  
-*  date last modified: 9/16/2022
+*  assignment: Project 1.1  
+*  date last modified: 9/28/2022
 *  
 *  purpose: This class shows the high scores of the players. The scores in this
 *  version reads scores from a txt file called scores.txt which is located
