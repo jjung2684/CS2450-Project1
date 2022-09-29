@@ -516,7 +516,7 @@ public class HangmanPanel extends JPanel {
             pharmacy, climbing
             */
             wordBank[0] = "ABSTRACT";
-            wordBank[1] = "CEMENTERY";
+            wordBank[1] = "CEMETERY";
             wordBank[2] = "NURSE";
             wordBank[3] = "PHARMACY";
             wordBank[4] = "CLIMBING";
