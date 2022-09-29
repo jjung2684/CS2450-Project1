@@ -37,9 +37,11 @@ public class SwingProjectV1 {
             // Create Frame for game window
             MainFrame mf = new MainFrame("CPP GUI Games");
             mf.setSize(new Dimension(600, 400));
-            mf.addSplashPanel();
+            mf.setLocationRelativeTo(null);
             mf.setVisible(true);
             
+            // add splash panel
+            mf.addSplashPanel();
             
             // Create a timer for displaying splash screen
             Timer timer = new Timer(3000, new ActionListener() {
