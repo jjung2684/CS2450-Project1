@@ -174,7 +174,7 @@ class SplashPanel extends JPanel {
 
         g.drawImage(backgroundImg, 0, 0, 600, 400, this);
         drawCenteredString(g, "By: CPP GUI", creditsRect, creditsFont);
-        drawCenteredString(g, "CS 2450 Project V1.0", titleRect, titleFont);
+        drawCenteredString(g, "CS 2450 Project V1.1", titleRect, titleFont);
 
     }
 
