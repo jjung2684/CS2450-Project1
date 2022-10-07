@@ -15,7 +15,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package swingprojectv1.pkg0;
+package swingprojectv1.game;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -50,12 +50,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.util.stream.*;
 import java.util.stream.Collectors;
+import swingprojectv1.game.EndScreenPanel;
+import swingprojectv1.game.MainFrame;
 
 /**
  *
  * @author tommy
  */
-public class ColorGameScreen extends JPanel implements ActionListener {
+public class ColorGamePanel extends JPanel implements ActionListener {
 
     private final MainFrame mainFrame;
     private JPanel gamePanel;
@@ -86,7 +88,7 @@ public class ColorGameScreen extends JPanel implements ActionListener {
     private final int MAX_ROUNDS = 5;
     private Random random = new Random();
 
-    public ColorGameScreen(MainFrame mainFrame) {
+    public ColorGamePanel(MainFrame mainFrame) {
 
         // initialize mainFrame
         this.mainFrame = mainFrame;

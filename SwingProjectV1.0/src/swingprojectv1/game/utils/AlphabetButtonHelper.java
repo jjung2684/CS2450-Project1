@@ -11,7 +11,7 @@
 * to the player guess
 *  
 ****************************************************************/  
-package swingprojectv1.pkg0;
+package swingprojectv1.game.utils;
 
 import java.awt.event.ActionEvent;
 import java.util.Map;

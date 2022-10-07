@@ -10,7 +10,7 @@
 * the splash screen and initializes the splash, home, and game panels
 *  
 ****************************************************************/  
-package swingprojectv1.pkg0;
+package swingprojectv1.game;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;

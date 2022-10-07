@@ -10,7 +10,7 @@
 * splash and home screen, and their functionality (timer, buttons, backgrounds)
 *  
 ****************************************************************/  
-package swingprojectv1.pkg0;
+package swingprojectv1.game;
 
 import java.awt.*;
 import java.awt.event.*;

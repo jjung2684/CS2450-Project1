@@ -10,7 +10,7 @@
 * displaying the game score and redirecting the player to the home screen
 *  
 ****************************************************************/  
-package swingprojectv1.pkg0;
+package swingprojectv1.game;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -34,7 +34,7 @@ public class EndScreenPanel extends JPanel {
     private JLabel gameOverField;
     private JLabel imageLabel;
     private ImageIcon backgroundIcon;
-    private ColorGameScreen colorGame;
+    private ColorGamePanel colorGame;
     
     private int score = 0;
     private String gameEndMessage = "Game Over!";
@@ -65,7 +65,7 @@ public class EndScreenPanel extends JPanel {
         //this.colorGame = new ColorGameScreen(this.mainFrame);
         
         // color game 
-        this.colorGame = new ColorGameScreen(this.mainFrame);
+        this.colorGame = new ColorGamePanel(this.mainFrame);
         
         setLayout(null);
         

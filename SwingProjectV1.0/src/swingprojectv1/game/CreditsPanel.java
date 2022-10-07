@@ -10,7 +10,7 @@
 * displaying our names and bronco IDS
 *  
 ****************************************************************/  
-package swingprojectv1.pkg0;
+package swingprojectv1.game;
 
 import java.awt.Color;
 import java.awt.Dimension;

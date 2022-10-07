@@ -11,8 +11,9 @@
 * graphic, displays time, shows player score, and has the skip button
 *  
 ****************************************************************/  
-package swingprojectv1.pkg0;
+package swingprojectv1.game;
 
+import swingprojectv1.game.utils.AlphabetButtonHelper;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -95,7 +96,7 @@ public class HangmanPanel extends JPanel {
         // Helper for button methods
         private AlphabetButtonHelper alphaHelper = new AlphabetButtonHelper();
         private EndScreenPanel endScreen;
-        private ColorGameScreen colorGame;
+        private ColorGamePanel colorGame;
         
         private String hangmanPlayerInputField; // The Text Slot
         private String wordToGuess; // The Word the player will guess
@@ -134,7 +135,7 @@ public class HangmanPanel extends JPanel {
             imageLabel.setBounds(0, 0, 600, 400);
             this.add(imageLabel);
             
-            colorGame = new ColorGameScreen(this.mainFrame);
+            colorGame = new ColorGamePanel(this.mainFrame);
                         
              // <editor-fold defaultstate="collapsed" desc="Keyboard Buttons">
             this.alphabetPanel = new JPanel();

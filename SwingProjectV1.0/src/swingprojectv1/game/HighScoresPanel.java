@@ -10,7 +10,7 @@
 *  version reads scores from a txt file called scores.txt which is located
 *  in local project folder.
 ****************************************************************/  
-package swingprojectv1.pkg0;
+package swingprojectv1.game;
 
 // imports
 import java.awt.Color;
