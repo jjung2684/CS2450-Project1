@@ -34,7 +34,7 @@ import javax.swing.KeyStroke;
  *
  * @author barre
  */
-public class MainFrame extends Frame implements WindowListener, ActionListener {
+public class MainFrame extends JFrame implements WindowListener, ActionListener {
 
     SplashPanel sp;
     HomePanel hp;
