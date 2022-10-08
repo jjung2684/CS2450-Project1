@@ -28,6 +28,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.DataInputStream;
@@ -38,6 +39,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.RandomAccessFile;
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -50,6 +53,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.util.stream.*;
 import java.util.stream.Collectors;
+import javax.swing.Timer;
 
 /**
  *
@@ -62,6 +66,7 @@ public class ColorGameScreen extends JPanel implements ActionListener {
     private JLabel colorPrompt;
     private JButton skipButton;
     private JLabel scoreLabel;
+    private JLabel clockLabel;
 
     private Rectangle colorPromptRect;
     private Rectangle scoreRect;
@@ -130,12 +135,15 @@ public class ColorGameScreen extends JPanel implements ActionListener {
         scoreLabel = new JLabel();
         colorPrompt = new JLabel();
         skipButton = new JButton();
+        this.clockLabel = new JLabel();
 
         this.fillKeyRectMap();
         // Set Label text
         colorPrompt.setText("Waiting...");
         scoreLabel.setText("Score: " + userScore);
+        scoreLabel.setToolTipText("Your score for color game");
         skipButton.setText("Skip");
+        skipButton.setToolTipText("Skip color game and start a Sudoku game. Your score will be 0");
 
         // Set font and initial color for text
         colorPrompt.setFont(new Font("Sans-Serif", Font.BOLD, 24));
@@ -162,6 +170,20 @@ public class ColorGameScreen extends JPanel implements ActionListener {
                 }
             }
         });
+
+        Timer timer = new Timer(500, new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                time();
+            }
+        });
+    
+        time();
+        this.add(clockLabel);
+        clockLabel.setBounds(390, 5, 250, 22);
+        timer.setRepeats(true);
+        timer.setCoalesce(true);
+        timer.setInitialDelay(0);
+        timer.start();
 
         // Add the key components
         this.add(colorPrompt);
@@ -584,6 +606,10 @@ public class ColorGameScreen extends JPanel implements ActionListener {
                       (e1, e2) -> e1, LinkedHashMap::new));
  
         return temp;
+    }
+    
+    private void time() {
+        clockLabel.setText(DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.MEDIUM).format(new Date()));
     }
 
 

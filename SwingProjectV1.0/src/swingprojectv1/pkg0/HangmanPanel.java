@@ -228,6 +228,7 @@ public class HangmanPanel extends JPanel {
             
             // Set text for each button
             skipButton.setText("Skip");
+            skipButton.setToolTipText("Skip hangman game and start color game. Your score will be 0");
             alphaButtonEnabler.setText("Re-Enable Buttons");
             
             alphaButtonBackspace.setEnabled(false);
@@ -281,6 +282,7 @@ public class HangmanPanel extends JPanel {
             //dateLabel.setBounds(447, 10, 120, 16);
 
             scoreDispay.setText("Score: " + playerScore);
+            scoreDispay.setToolTipText("Your score for hangman");
             this.add(scoreDispay);
             scoreDispay.setBounds(10, 5, 120, 16);
             

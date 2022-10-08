@@ -20,10 +20,15 @@ import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 
 /**
  *
@@ -44,6 +49,33 @@ public class MainFrame extends Frame implements WindowListener, ActionListener {
         pack();
         setLocationRelativeTo(null);
         setTitle(title);
+
+        getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+        KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "Cancel"); 
+        getRootPane().getActionMap().put("Cancel", new AbstractAction()
+        { 
+
+            public void actionPerformed(ActionEvent e)
+            {
+                System.exit(0);
+            }
+        });
+        
+        getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+        KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0), "Popup"); 
+        getRootPane().getActionMap().put("Popup", new AbstractAction()
+                
+        { 
+
+            public void actionPerformed(ActionEvent e)
+            {
+                JOptionPane.showMessageDialog(null, "CS2450 Fall 2022 Java Swing Project\n"
+                        + "\nMiguel Geronimo - 015323438, \nLy Hoang Rivera - 014384968,"
+                        + "\nSpencer Barrett - 011727157,\nTommy James - 014478542,"
+                        + "\nJacob Jung - 010812009");
+                
+            }
+        });
 
     }
 
@@ -212,8 +244,11 @@ class HomePanel extends JPanel implements ActionListener {
 //        imageIcon = new ImageIcon(fileName);
         imageLabel = new JLabel(new ImageIcon(url));
         startButton = new JButton("Start");
+        startButton.setToolTipText("Start a hangman game");
         highScoresButton = new JButton("High Scores");
+        highScoresButton.setToolTipText("Display high scores");
         creditsButton = new JButton("Credits");
+        creditsButton.setToolTipText("Display credits screen");
         
         // Absolute positioning...
         setLayout(null);

@@ -68,6 +68,7 @@ public class HighScoresPanel extends JPanel implements ActionListener {
         backButton = new JButton();
         
         backButton.setText("Back to Home");
+        backButton.setToolTipText("Go back to main screen");
         backButton.setBounds(325, 300, 150, 25);
         backButton.addActionListener(this);
         
