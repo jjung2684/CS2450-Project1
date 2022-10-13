@@ -42,6 +42,7 @@ public class MainFrame extends JFrame implements WindowListener, ActionListener 
     EndScreenPanel endScreen;
     HighScoresPanel highScoresPanel;
     CreditsPanel creditsPanel;
+    SudokuPanel sudokuPanel;
     
 
     public MainFrame(String title) {
@@ -49,6 +50,7 @@ public class MainFrame extends JFrame implements WindowListener, ActionListener 
         pack();
         setLocationRelativeTo(null);
         setTitle(title);
+        setResizable(false);
 
         getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
         KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "Cancel"); 
@@ -126,7 +128,17 @@ public class MainFrame extends JFrame implements WindowListener, ActionListener 
         this.revalidate();
     }
     
-        public void addCreditsScreen() throws IOException {
+    public void addSudokuScreen() throws IOException {
+        this.remove(hp);
+        sudokuPanel = new SudokuPanel(this);
+        sudokuPanel.getPreferredSize();
+        add(sudokuPanel);
+        sudokuPanel.setVisible(true);
+        this.repaint();
+        this.revalidate();
+    }
+    
+    public void addCreditsScreen() throws IOException {
         this.remove(hp);
         creditsPanel = new CreditsPanel(this);
         creditsPanel.getPreferredSize();
