@@ -86,8 +86,11 @@ public class EndScreenPanel extends JPanel {
         nextGameButton.setText(nextGameButtonMessage);       
         nextGameButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                System.out.println("The current panel is " + ((JButton)event.getSource()).getParent());
-                //nextGame();
+                try {
+                        nextGame();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
             }
         });
         add(nextGameButton);

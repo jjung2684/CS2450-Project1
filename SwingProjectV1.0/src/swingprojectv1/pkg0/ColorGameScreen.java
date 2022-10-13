@@ -62,7 +62,6 @@ import javax.swing.Timer;
 public class ColorGameScreen extends JPanel implements ActionListener {
 
     private final MainFrame mainFrame;
-    private SudokuPanel sudokuPanel;
     private JPanel gamePanel;
     private JLabel colorPrompt;
     private JButton skipButton;
@@ -165,8 +164,7 @@ public class ColorGameScreen extends JPanel implements ActionListener {
         skipButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 try {
-                    //skipGame();
-                    addSudokuGamePanel();
+                    skipGame();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -325,19 +323,6 @@ public class ColorGameScreen extends JPanel implements ActionListener {
         mainFrame.repaint();
         mainFrame.revalidate();
     }
-    
-    private void addSudokuGamePanel() throws IOException {
-        sudokuPanel = new SudokuPanel(this.mainFrame);
-        
-        this.mainFrame.remove(this);
-        
-        compareHighScore();
-
-        this.mainFrame.add(sudokuPanel);
-
-        this.mainFrame.repaint();
-        this.mainFrame.revalidate();
-        }
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -483,7 +468,7 @@ public class ColorGameScreen extends JPanel implements ActionListener {
                 prepareNextRound();
             } else {
                 // At round 5...
-                addSudokuGamePanel();
+                addEndGamePanel();
             }
 
         } else {

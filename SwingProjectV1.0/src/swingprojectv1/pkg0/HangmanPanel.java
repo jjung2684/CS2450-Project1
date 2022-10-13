@@ -507,15 +507,6 @@ public class HangmanPanel extends JPanel {
             mainFrame.revalidate();
         }
         
-        private void addColorGamePanel() {
-            this.mainFrame.remove(this.mainFrame.hangmanPanel);
-            
-            this.mainFrame.add(colorGame);
-
-            this.mainFrame.repaint();
-            this.mainFrame.revalidate();
-        }
-        
         /**
          * Picks a random word from a predefined set of 10
          * @return 
@@ -616,13 +607,11 @@ public class HangmanPanel extends JPanel {
             }
             
             if (numOfSlotsSet == this.wordToGuess.length()) {
-                this.addColorGamePanel();
-                
-//                try {
-//                   this.addEndGamePanel();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
+                try {
+                   this.addEndGamePanel();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
         
