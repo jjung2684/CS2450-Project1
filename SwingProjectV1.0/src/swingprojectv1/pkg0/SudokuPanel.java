@@ -25,15 +25,22 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.TextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.print.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.text.DateFormat;
+import java.util.Date;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
+import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.Timer;
 
 /**
  *
@@ -61,6 +68,8 @@ public class SudokuPanel extends JPanel implements PropertyChangeListener {
             entryField73, entryField74, entryField75, entryField76,
             entryField77, entryField78, entryField79, entryField80, entryField81;
     
+    private JLabel clockLabel;
+    
     public SudokuPanel(MainFrame frame){
         this.frame = frame;
         createGameBoard();
@@ -72,7 +81,7 @@ public class SudokuPanel extends JPanel implements PropertyChangeListener {
         
         // create Sudoku entry panel
         JPanel entryPanel = new JPanel();
-        entryPanel.setBounds(205, 50, 190, 220);
+        entryPanel.setBounds(205, 75, 190, 220);
         entryPanel.setBackground(Color.gray);
         
         // <editor-fold defaultstate="collapsed" desc="create text fields">
@@ -523,6 +532,33 @@ public class SudokuPanel extends JPanel implements PropertyChangeListener {
         
         // add sudoku entry panel to sudoku panel
         add(entryPanel);
+        
+        // add buttons
+        JButton submitButton = new JButton("Submit");
+        submitButton.setBounds(40, 325, 80, 20);
+        add(submitButton);
+        
+        JButton quitButton = new JButton("Quit");
+        quitButton.setBounds(480, 325, 80, 20);
+        add(quitButton);
+        
+        // add clock
+        Timer timer = new Timer(500, new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                time();
+            }
+        });
+        
+        clockLabel = new JLabel();
+        clockLabel.setBounds(390, 5, 250, 22);
+        add(clockLabel);
+        
+        timer.setRepeats(true);
+        timer.setCoalesce(true);
+        timer.setInitialDelay(0);
+        timer.start();
+        
+        time();
     }
     
     
@@ -557,5 +593,9 @@ public class SudokuPanel extends JPanel implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+    }
+    
+    private void time() {
+        clockLabel.setText(DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.MEDIUM).format(new Date()));
     }
 }
