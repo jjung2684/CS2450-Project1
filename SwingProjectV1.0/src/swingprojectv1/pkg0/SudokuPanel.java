@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package swingprojectv1.pkg0;
 
 /***************************************************************  
@@ -78,14 +74,9 @@ public class SudokuPanel extends JPanel implements PropertyChangeListener, Actio
     
     public SudokuPanel(MainFrame frame){
         this.frame = frame;
-        initComponents();
-        createGameBoard();
-        //setBackground(Color.red);
-        setLayout(new BorderLayout());
-    }
-    
-    private void initComponents(){
         gameArray = new ArrayList<Integer>();
+        createGameBoard();
+        setLayout(new BorderLayout());
     }
     
     private void createGameBoard() {
