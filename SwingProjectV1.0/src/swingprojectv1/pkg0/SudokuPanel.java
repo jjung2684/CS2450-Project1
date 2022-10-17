@@ -33,6 +33,8 @@ import java.awt.print.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -46,7 +48,7 @@ import javax.swing.Timer;
  *
  * @author tommy
  */
-public class SudokuPanel extends JPanel implements PropertyChangeListener {
+public class SudokuPanel extends JPanel implements PropertyChangeListener, ActionListener {
     
     private JFrame frame;
     JFormattedTextField entryField1, entryField2, entryField3, entryField4,
@@ -68,13 +70,22 @@ public class SudokuPanel extends JPanel implements PropertyChangeListener {
             entryField73, entryField74, entryField75, entryField76,
             entryField77, entryField78, entryField79, entryField80, entryField81;
     
+    private JButton submitButton;
+    private JButton quitButton;
     private JLabel clockLabel;
+    private ArrayList<Integer> gameArray;
+    private int[] solutionArray;
     
     public SudokuPanel(MainFrame frame){
         this.frame = frame;
+        initComponents();
         createGameBoard();
         //setBackground(Color.red);
         setLayout(new BorderLayout());
+    }
+    
+    private void initComponents(){
+        gameArray = new ArrayList<Integer>();
     }
     
     private void createGameBoard() {
@@ -534,12 +545,14 @@ public class SudokuPanel extends JPanel implements PropertyChangeListener {
         add(entryPanel);
         
         // add buttons
-        JButton submitButton = new JButton("Submit");
+        submitButton = new JButton("Submit");
         submitButton.setBounds(40, 325, 80, 20);
+        submitButton.addActionListener(this);
         add(submitButton);
         
-        JButton quitButton = new JButton("Quit");
+        quitButton = new JButton("Quit");
         quitButton.setBounds(480, 325, 80, 20);
+        quitButton.addActionListener(this);
         add(quitButton);
         
         // add clock
@@ -561,7 +574,31 @@ public class SudokuPanel extends JPanel implements PropertyChangeListener {
         time();
     }
     
-    
+    public void checkSolution(){
+        Boolean win = true;
+        int[] solutionArray = {
+            8, 3, 5, 4, 1, 6, 9, 2, 7, 
+            2, 9, 6, 8, 5, 7, 4, 3, 1,
+            4, 1, 7, 2, 9, 3, 6, 5, 8,
+            5, 6, 9, 1, 3, 4, 7, 8, 2,
+            1, 2, 3, 6, 7, 8, 5, 4, 9,
+            7, 4, 8, 5, 2, 9, 1, 6, 3,
+            6, 5, 2, 7, 8, 1, 3, 9, 4,
+            9, 8, 1, 3, 4, 5, 2, 7, 6,
+            3, 7, 4, 9, 6, 2, 8, 1, 5};
+
+        for (int i = 0; i < solutionArray.length; i++) {
+            if (solutionArray[i] != gameArray.get(i)){
+                win = false;
+            }
+        }
+        
+        if (win){
+            System.out.println("You won!");
+        } else {
+            System.out.println("You lost.");
+        }    
+    }
     
     public Dimension getPreferredSize() {
         return new Dimension(600, 400);
@@ -597,5 +634,115 @@ public class SudokuPanel extends JPanel implements PropertyChangeListener {
     
     private void time() {
         clockLabel.setText(DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.MEDIUM).format(new Date()));
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == submitButton) {
+            // <editor-fold defaultstate="collapsed" desc="Add user inputs to game array">
+            
+            // row 1
+            gameArray.add(Integer.parseInt(entryField1.getText()));
+            gameArray.add(Integer.parseInt(entryField2.getText()));
+            gameArray.add(Integer.parseInt(entryField3.getText()));
+            gameArray.add(Integer.parseInt(entryField4.getText()));
+            gameArray.add(Integer.parseInt(entryField5.getText()));
+            gameArray.add(Integer.parseInt(entryField6.getText()));
+            gameArray.add(Integer.parseInt(entryField7.getText()));
+            gameArray.add(Integer.parseInt(entryField8.getText()));
+            gameArray.add(Integer.parseInt(entryField9.getText()));
+            
+            // row 2
+            gameArray.add(Integer.parseInt(entryField10.getText()));
+            gameArray.add(Integer.parseInt(entryField11.getText()));
+            gameArray.add(Integer.parseInt(entryField12.getText()));
+            gameArray.add(Integer.parseInt(entryField13.getText()));
+            gameArray.add(Integer.parseInt(entryField14.getText()));
+            gameArray.add(Integer.parseInt(entryField15.getText()));
+            gameArray.add(Integer.parseInt(entryField16.getText()));
+            gameArray.add(Integer.parseInt(entryField17.getText()));
+            gameArray.add(Integer.parseInt(entryField18.getText()));
+            
+            // row 3
+            gameArray.add(Integer.parseInt(entryField19.getText()));
+            gameArray.add(Integer.parseInt(entryField20.getText()));
+            gameArray.add(Integer.parseInt(entryField21.getText()));
+            gameArray.add(Integer.parseInt(entryField22.getText()));
+            gameArray.add(Integer.parseInt(entryField23.getText()));
+            gameArray.add(Integer.parseInt(entryField24.getText()));
+            gameArray.add(Integer.parseInt(entryField25.getText()));
+            gameArray.add(Integer.parseInt(entryField26.getText()));
+            gameArray.add(Integer.parseInt(entryField27.getText()));
+            
+            // row 4
+            gameArray.add(Integer.parseInt(entryField28.getText()));
+            gameArray.add(Integer.parseInt(entryField29.getText()));
+            gameArray.add(Integer.parseInt(entryField30.getText()));
+            gameArray.add(Integer.parseInt(entryField31.getText()));
+            gameArray.add(Integer.parseInt(entryField32.getText()));
+            gameArray.add(Integer.parseInt(entryField33.getText()));
+            gameArray.add(Integer.parseInt(entryField34.getText()));
+            gameArray.add(Integer.parseInt(entryField35.getText()));
+            gameArray.add(Integer.parseInt(entryField36.getText()));
+            
+            // row 5
+            gameArray.add(Integer.parseInt(entryField37.getText()));
+            gameArray.add(Integer.parseInt(entryField38.getText()));
+            gameArray.add(Integer.parseInt(entryField39.getText()));
+            gameArray.add(Integer.parseInt(entryField40.getText()));
+            gameArray.add(Integer.parseInt(entryField41.getText()));
+            gameArray.add(Integer.parseInt(entryField42.getText()));
+            gameArray.add(Integer.parseInt(entryField43.getText()));
+            gameArray.add(Integer.parseInt(entryField44.getText()));
+            gameArray.add(Integer.parseInt(entryField45.getText()));
+            
+            // row 6
+            gameArray.add(Integer.parseInt(entryField46.getText()));
+            gameArray.add(Integer.parseInt(entryField47.getText()));
+            gameArray.add(Integer.parseInt(entryField48.getText()));
+            gameArray.add(Integer.parseInt(entryField49.getText()));
+            gameArray.add(Integer.parseInt(entryField50.getText()));
+            gameArray.add(Integer.parseInt(entryField51.getText()));
+            gameArray.add(Integer.parseInt(entryField52.getText()));
+            gameArray.add(Integer.parseInt(entryField53.getText()));
+            gameArray.add(Integer.parseInt(entryField54.getText()));
+            
+            // row 7
+            gameArray.add(Integer.parseInt(entryField55.getText()));
+            gameArray.add(Integer.parseInt(entryField56.getText()));
+            gameArray.add(Integer.parseInt(entryField57.getText()));
+            gameArray.add(Integer.parseInt(entryField58.getText()));
+            gameArray.add(Integer.parseInt(entryField59.getText()));
+            gameArray.add(Integer.parseInt(entryField60.getText()));
+            gameArray.add(Integer.parseInt(entryField61.getText()));
+            gameArray.add(Integer.parseInt(entryField62.getText()));
+            gameArray.add(Integer.parseInt(entryField63.getText()));
+            
+            // row 8
+            gameArray.add(Integer.parseInt(entryField64.getText()));
+            gameArray.add(Integer.parseInt(entryField65.getText()));
+            gameArray.add(Integer.parseInt(entryField66.getText()));
+            gameArray.add(Integer.parseInt(entryField67.getText()));
+            gameArray.add(Integer.parseInt(entryField68.getText()));
+            gameArray.add(Integer.parseInt(entryField69.getText()));
+            gameArray.add(Integer.parseInt(entryField70.getText()));
+            gameArray.add(Integer.parseInt(entryField71.getText()));
+            gameArray.add(Integer.parseInt(entryField72.getText()));
+            
+            // row 9
+            gameArray.add(Integer.parseInt(entryField73.getText()));
+            gameArray.add(Integer.parseInt(entryField74.getText()));
+            gameArray.add(Integer.parseInt(entryField75.getText()));
+            gameArray.add(Integer.parseInt(entryField76.getText()));
+            gameArray.add(Integer.parseInt(entryField77.getText()));
+            gameArray.add(Integer.parseInt(entryField78.getText()));
+            gameArray.add(Integer.parseInt(entryField79.getText()));
+            gameArray.add(Integer.parseInt(entryField80.getText()));
+            gameArray.add(Integer.parseInt(entryField81.getText()));
+            // </editor-fold>
+            
+            System.out.println(gameArray);
+            checkSolution();
+        }
     }
 }
