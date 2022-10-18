@@ -316,7 +316,11 @@ public class ColorGameScreen extends JPanel implements ActionListener {
     private void addEndGamePanel() throws IOException {
         mainFrame.remove(this);
 
+
 //        compareHighScore();
+
+        //compareHighScore();
+
 
         EndScreenPanel endScreen = new EndScreenPanel(null, mainFrame, userScore, "Game Over!", "Restart");
         mainFrame.add(endScreen);
@@ -332,6 +336,7 @@ public class ColorGameScreen extends JPanel implements ActionListener {
         this.mainFrame.remove(this);
         
 //        compareHighScore();
+        //compareHighScore();
 
         this.mainFrame.add(sudokuPanel);
 

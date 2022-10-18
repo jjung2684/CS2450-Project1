@@ -103,7 +103,7 @@ public class EndScreenPanel extends JPanel {
                 //nextGame();
             }
         });
-        add(nextGameButton);
+        //add(nextGameButton);
         nextGameButton.setBounds(150, 275 + adjustY, 300, 60);
         }else{
             restartButton.setText(this.resetGameButtonMessage);
