@@ -28,17 +28,32 @@ import javax.swing.JPanel;
 import java.awt.print.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.Timer;
+import static swingprojectv1.pkg0.ColorGameScreen.sortByValue;
 
 /**
  *
@@ -71,6 +86,7 @@ public class SudokuPanel extends JPanel implements PropertyChangeListener, Actio
     private JLabel clockLabel;
     private ArrayList<Integer> gameArray;
     private int[] solutionArray;
+    private int userScore;
     
     public SudokuPanel(MainFrame frame){
         this.frame = frame;
@@ -545,6 +561,18 @@ public class SudokuPanel extends JPanel implements PropertyChangeListener, Actio
         quitButton.setBounds(480, 325, 80, 20);
         quitButton.addActionListener(this);
         add(quitButton);
+
+        quitButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                try {
+                    
+                    addEndGamePanel();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        
         
         // add clock
         Timer timer = new Timer(500, new ActionListener() {
@@ -618,6 +646,104 @@ public class SudokuPanel extends JPanel implements PropertyChangeListener, Actio
 //        g2.drawLine(100, 350, 500, 350);
 //        g2.drawLine(100, 400, 500, 400);
     }
+
+    private void addEndGamePanel() throws IOException {
+        frame.remove(this);
+
+        compareHighScore();
+
+        EndScreenPanel endScreen = new EndScreenPanel(null, (MainFrame) frame, userScore, "Game Over!", "Restart");
+        frame.add(endScreen);
+        endScreen.setVisible(true);
+
+        frame.repaint();
+        frame.revalidate();
+    }
+
+    public void compareHighScore() throws FileNotFoundException, IOException {
+
+        File file = new File(".." + System.getProperty("file.separator") + "score.txt");
+        FileInputStream inFile = new FileInputStream(file);
+        DataInputStream dInputStream = new DataInputStream(inFile);
+        BufferedReader breader = new BufferedReader(new InputStreamReader(dInputStream));
+        String userInitials = "";
+        String initialToChange = "";
+        Map<String, Integer> scores = new HashMap<>();
+
+        boolean changed = false;
+        int scoreToChange = 0;
+
+        //Parses file for initials and scores and puts into a Map(Initials, Scores)
+        for (int i = 0; i < 5; i++) {
+            String line = breader.readLine();
+            String num = line.replaceAll("[^0-9]", "");
+            String initials = line.replaceAll("[^A-Z]", "");
+
+            int score = Integer.parseInt(num);
+            
+            //If score higher than lowest score, replaces lowest score
+            if ((userScore > score && i == 4) && !changed) {
+               
+                scoreToChange = score;
+                score = userScore;
+                initialToChange = initials;
+                changed = true;
+            }
+            scores.put(initials, score);
+        }
+
+        // Display a message after comparing the scores. Nothing happens when the user score is lower than the lowest high score
+        if (changed == true) {
+            userInitials = JOptionPane.showInputDialog(frame, "You set a new high score with " + userScore + " points!\nPlease enter in your intials below: ");
+            scores.remove(initialToChange);
+            scores.put(userInitials, userScore);
+            HashMap<String, Integer> sorted = sortByValue(scores);
+            System.out.println(sorted);
+            // Get entry set of the TreeMap using entrySet
+            // method
+            Set<Map.Entry<String, Integer>> entrySet
+                    = sorted.entrySet();
+
+            // Convert entrySet to Array using toArray method
+            Map.Entry<String, Integer>[] entryArray
+                    = entrySet.toArray(
+                            new Map.Entry[entrySet.size()]);
+            
+            //Write changes to file
+            try {
+                FileWriter fw = new FileWriter(file);
+                for (int i = 4; i >= 0; i--) {
+                    fw.write(entryArray[i].getValue() + " " + entryArray[i].getKey().toString() + "\n");
+                }
+                fw.close();
+            } catch (IOException e) {
+                System.out.println("An error occurred.");
+                e.printStackTrace();
+
+            }
+
+        }
+
+    }
+    
+    //Helper method to resort HashMap for rewrite
+    public static HashMap<String, Integer>
+    sortByValue(Map<String, Integer> hm)
+    {
+        HashMap<String, Integer> temp
+            = hm.entrySet()
+                  .stream()
+                  .sorted((i1, i2)
+                              -> i1.getValue().compareTo(
+                                  i2.getValue()))
+                  .collect(Collectors.toMap(
+                      Map.Entry::getKey,
+                      Map.Entry::getValue,
+                      (e1, e2) -> e1, LinkedHashMap::new));
+ 
+        return temp;
+    }
+
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {

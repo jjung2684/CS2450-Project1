@@ -90,7 +90,7 @@ public class EndScreenPanel extends JPanel {
                 //nextGame();
             }
         });
-        add(nextGameButton);
+        //add(nextGameButton);
         nextGameButton.setBounds(150, 275 + adjustY, 300, 60);
         
         skipGameButton.setFont(new Font("Sans-Serif", Font.PLAIN, 35));
