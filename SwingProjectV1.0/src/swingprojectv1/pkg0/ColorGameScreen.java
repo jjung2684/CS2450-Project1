@@ -316,7 +316,7 @@ public class ColorGameScreen extends JPanel implements ActionListener {
     private void addEndGamePanel() throws IOException {
         mainFrame.remove(this);
 
-        compareHighScore();
+//        compareHighScore();
 
         EndScreenPanel endScreen = new EndScreenPanel(null, mainFrame, userScore, "Game Over!", "Restart");
         mainFrame.add(endScreen);
@@ -331,7 +331,7 @@ public class ColorGameScreen extends JPanel implements ActionListener {
         
         this.mainFrame.remove(this);
         
-        compareHighScore();
+//        compareHighScore();
 
         this.mainFrame.add(sudokuPanel);
 
@@ -538,72 +538,72 @@ public class ColorGameScreen extends JPanel implements ActionListener {
         this.repaint();
     }
 
-    public void compareHighScore() throws FileNotFoundException, IOException {
-
-        File file = new File(".." + System.getProperty("file.separator") + "score.txt");
-        FileInputStream inFile = new FileInputStream(file);
-        DataInputStream dInputStream = new DataInputStream(inFile);
-        BufferedReader breader = new BufferedReader(new InputStreamReader(dInputStream));
-        String userInitials = "";
-        String initialToChange = "";
-        Map<String, Integer> scores = new HashMap<>();
-
-        boolean changed = false;
-        int scoreToChange = 0;
-
-        //Parses file for initials and scores and puts into a Map(Initials, Scores)
-        for (int i = 0; i < 5; i++) {
-            String line = breader.readLine();
-            String num = line.replaceAll("[^0-9]", "");
-            String initials = line.replaceAll("[^A-Z]", "");
-
-            int score = Integer.parseInt(num);
-            
-            //If score higher than lowest score, replaces lowest score
-            if ((userScore > score && i == 4) && !changed) {
-               
-                scoreToChange = score;
-                score = userScore;
-                initialToChange = initials;
-                changed = true;
-            }
-            scores.put(initials, score);
-        }
-
-        // Display a message after comparing the scores. Nothing happens when the user score is lower than the lowest high score
-        if (changed == true) {
-            userInitials = JOptionPane.showInputDialog(mainFrame, "You set a new high score with " + userScore + " points!\nPlease enter in your intials below: ");
-            scores.remove(initialToChange);
-            scores.put(userInitials, userScore);
-            HashMap<String, Integer> sorted = sortByValue(scores);
-            System.out.println(sorted);
-            // Get entry set of the TreeMap using entrySet
-            // method
-            Set<Map.Entry<String, Integer>> entrySet
-                    = sorted.entrySet();
-
-            // Convert entrySet to Array using toArray method
-            Map.Entry<String, Integer>[] entryArray
-                    = entrySet.toArray(
-                            new Map.Entry[entrySet.size()]);
-            
-            //Write changes to file
-            try {
-                FileWriter fw = new FileWriter(file);
-                for (int i = 4; i >= 0; i--) {
-                    fw.write(entryArray[i].getValue() + " " + entryArray[i].getKey().toString() + "\n");
-                }
-                fw.close();
-            } catch (IOException e) {
-                System.out.println("An error occurred.");
-                e.printStackTrace();
-
-            }
-
-        }
-
-    }
-    
+//    public void compareHighScore() throws FileNotFoundException, IOException {
+//
+//        File file = new File(".." + System.getProperty("file.separator") + "score.txt");
+//        FileInputStream inFile = new FileInputStream(file);
+//        DataInputStream dInputStream = new DataInputStream(inFile);
+//        BufferedReader breader = new BufferedReader(new InputStreamReader(dInputStream));
+//        String userInitials = "";
+//        String initialToChange = "";
+//        Map<String, Integer> scores = new HashMap<>();
+//
+//        boolean changed = false;
+//        int scoreToChange = 0;
+//
+//        //Parses file for initials and scores and puts into a Map(Initials, Scores)
+//        for (int i = 0; i < 5; i++) {
+//            String line = breader.readLine();
+//            String num = line.replaceAll("[^0-9]", "");
+//            String initials = line.replaceAll("[^A-Z]", "");
+//
+//            int score = Integer.parseInt(num);
+//            
+//            //If score higher than lowest score, replaces lowest score
+//            if ((userScore > score && i == 4) && !changed) {
+//               
+//                scoreToChange = score;
+//                score = userScore;
+//                initialToChange = initials;
+//                changed = true;
+//            }
+//            scores.put(initials, score);
+//        }
+//
+//        // Display a message after comparing the scores. Nothing happens when the user score is lower than the lowest high score
+//        if (changed == true) {
+//            userInitials = JOptionPane.showInputDialog(mainFrame, "You set a new high score with " + userScore + " points!\nPlease enter in your intials below: ");
+//            scores.remove(initialToChange);
+//            scores.put(userInitials, userScore);
+//            HashMap<String, Integer> sorted = sortByValue(scores);
+//            System.out.println(sorted);
+//            // Get entry set of the TreeMap using entrySet
+//            // method
+//            Set<Map.Entry<String, Integer>> entrySet
+//                    = sorted.entrySet();
+//
+//            // Convert entrySet to Array using toArray method
+//            Map.Entry<String, Integer>[] entryArray
+//                    = entrySet.toArray(
+//                            new Map.Entry[entrySet.size()]);
+//            
+//            //Write changes to file
+//            try {
+//                FileWriter fw = new FileWriter(file);
+//                for (int i = 4; i >= 0; i--) {
+//                    fw.write(entryArray[i].getValue() + " " + entryArray[i].getKey().toString() + "\n");
+//                }
+//                fw.close();
+//            } catch (IOException e) {
+//                System.out.println("An error occurred.");
+//                e.printStackTrace();
+//
+//            }
+//
+//        }
+//
+//    }
+//    
     
     //Helper method to resort HashMap for rewrite
     public static HashMap<String, Integer>
