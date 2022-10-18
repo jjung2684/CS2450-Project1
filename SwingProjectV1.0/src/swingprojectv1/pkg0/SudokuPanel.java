@@ -613,6 +613,7 @@ public class SudokuPanel extends JPanel implements PropertyChangeListener, Actio
         submitButton = new JButton("Submit");
         submitButton.setBounds(40, 325, 80, 20);
         submitButton.addActionListener(this);
+        submitButton.setToolTipText("Submit Game and check for correct solution.");
         add(submitButton);
 
         quitButton = new JButton("Quit");
