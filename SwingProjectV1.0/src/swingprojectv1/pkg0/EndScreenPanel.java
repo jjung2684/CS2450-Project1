@@ -107,7 +107,7 @@ public class EndScreenPanel extends JPanel {
         nextGameButton.setBounds(150, 275 + adjustY, 300, 60);
         }else{
             restartButton.setText(this.resetGameButtonMessage);
-         add(restartButton);
+        add(restartButton);
         restartButton.setBounds(150, 275 + adjustY, 300, 60);
         restartButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
@@ -136,8 +136,19 @@ public class EndScreenPanel extends JPanel {
         skipGameButton.setBounds(150, 335 + adjustY, 300, 60);
 
         //restartButton.setFont(mainFrame.hangmanPanel.getFont());
-        restartButton.setText(this.resetGameButtonMessage);
-         add(restartButton);
+        add(restartButton);
+        restartButton.setFont(new Font("Sans-Serif", Font.PLAIN, 35));
+        restartButton.setText("Reset Game");
+         restartButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                System.out.println("The current panel is " + ((JButton) event.getSource()).getParent());
+                try {
+                    restartGame();
+                } catch (IOException ex) {
+                    Logger.getLogger(EndScreenPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
         restartButton.setBounds(150, 275 + adjustY, 300, 60);
     }
 
