@@ -43,6 +43,7 @@ public class MainFrame extends JFrame implements WindowListener, ActionListener 
     HighScoresPanel highScoresPanel;
     CreditsPanel creditsPanel;
     SudokuPanel sudokuPanel;
+    PongPanel pongPanel;
     
 
     public MainFrame(String title) {
@@ -101,11 +102,11 @@ public class MainFrame extends JFrame implements WindowListener, ActionListener 
         this.revalidate();
     }
     
-    public void reAddHomePanel(Frame mainFrame) throws IOException {
+    public void reAddHomePanel(Frame mainFrame, JPanel currentPanel) throws IOException {
         
-        this.remove(hangmanPanel);
+        this.remove(currentPanel);
         this.addHomePanel(mainFrame);
-        this.hangmanPanel = null;
+        currentPanel = null;
     }
     
     public void addGameScreen() throws IOException {
@@ -144,6 +145,16 @@ public class MainFrame extends JFrame implements WindowListener, ActionListener 
         creditsPanel.getPreferredSize();
         add(creditsPanel);
         creditsPanel.setVisible(true);
+        this.repaint();
+        this.revalidate();
+    }
+    
+    public void addPongScreen() throws IOException {
+        this.remove(hp);
+        pongPanel = new PongPanel(this);
+        pongPanel.getPreferredSize();
+        add(pongPanel);
+        pongPanel.setVisible(true);
         this.repaint();
         this.revalidate();
     }
@@ -246,6 +257,7 @@ class HomePanel extends JPanel implements ActionListener {
     JButton startButton = new JButton();
     JButton highScoresButton = new JButton();
     JButton creditsButton = new JButton();
+    JButton playPongButton;
     
     public HomePanel(URL url, MainFrame mainFrame) {
 
@@ -261,6 +273,8 @@ class HomePanel extends JPanel implements ActionListener {
         highScoresButton.setToolTipText("Display high scores");
         creditsButton = new JButton("Credits");
         creditsButton.setToolTipText("Display credits screen");
+        playPongButton = new JButton("Play Pong");
+        playPongButton.setToolTipText("Start a Pong game");
         
         // Absolute positioning...
         setLayout(null);
@@ -269,16 +283,19 @@ class HomePanel extends JPanel implements ActionListener {
         startButton.addActionListener(this);
         highScoresButton.addActionListener(this);
         creditsButton.addActionListener(this);
+        playPongButton.addActionListener(this);
 
         // Location and sizing for components
         imageLabel.setBounds(0, 0, 600, 400);
-        startButton.setBounds(450, 250, 125, 25);
-        highScoresButton.setBounds(450, 280, 125, 25);
-        creditsButton.setBounds(450, 310, 125, 25);
+        startButton.setBounds(450, 230, 125, 25);
+        highScoresButton.setBounds(450, 260, 125, 25);
+        creditsButton.setBounds(450, 290, 125, 25);
+        playPongButton.setBounds(450, 320, 125, 25);
 
         add(startButton);
         add(highScoresButton);
         add(creditsButton);
+        add(playPongButton);
         add(imageLabel);
 
     }
@@ -300,7 +317,9 @@ class HomePanel extends JPanel implements ActionListener {
         } else if (event.getSource() == highScoresButton){
             onHighScoresButtonClicked(event); // high scores button clicked
         } else if (event.getSource() == creditsButton){
-            onCreditsButtonClicked(event); // high scores button clicked
+            onCreditsButtonClicked(event); // credits button clicked
+        } else if (event.getSource() == playPongButton) {
+            onPlayPongButtonClicked(event); // play pong button clicked
         }
     }
     
@@ -330,6 +349,16 @@ class HomePanel extends JPanel implements ActionListener {
             // Add any other options here, like maybe listen for a key press for secrets (:
             System.out.println("Clicked on Credits button");
             mainFrame.addCreditsScreen();
+        } catch (IOException ex) {
+            Logger.getLogger(CreditsPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void onPlayPongButtonClicked(ActionEvent event){
+        try {
+            // Add any other options here, like maybe listen for a key press for secrets (:
+            System.out.println("Clicked on Credits button");
+            mainFrame.addPongScreen();
         } catch (IOException ex) {
             Logger.getLogger(CreditsPanel.class.getName()).log(Level.SEVERE, null, ex);
         }

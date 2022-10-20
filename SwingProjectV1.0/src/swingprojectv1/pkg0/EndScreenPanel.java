@@ -156,7 +156,7 @@ public class EndScreenPanel extends JPanel {
         mainFrame.remove(this);
         mainFrame.repaint();
         this.revalidate();
-        this.mainFrame.reAddHomePanel(mainFrame);
+        this.mainFrame.reAddHomePanel(mainFrame, this);
     }
     
     private void restartGame() throws IOException {
