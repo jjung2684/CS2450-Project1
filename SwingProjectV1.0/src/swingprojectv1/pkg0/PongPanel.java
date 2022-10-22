@@ -26,12 +26,14 @@ import javax.swing.Timer;
  *
  ***************************************************************
  */
-public class PongPanel extends JPanel {
+public class PongPanel extends JPanel implements Runnable {
     private MainFrame mainFrame;
     private JButton quitButton;
     private JLabel clockLabel;
     private JPanel pongGamePanel;
     private EndScreenPanel endScreen;
+    Ball ball;
+    Thread thread;
     
     public PongPanel(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
@@ -41,7 +43,7 @@ public class PongPanel extends JPanel {
     }
     
     private void initComponents() {
-        
+        ball = new Ball(this, 300, 175, Color.WHITE);
         // create pong game panel
         pongGamePanel = new JPanel();
         pongGamePanel.setBounds(150, 50, 300, 250);
@@ -80,8 +82,10 @@ public class PongPanel extends JPanel {
         timer.start();
 
         time();
+        thread = new Thread(this);
+        thread.start();
     }
-    
+
     public Dimension getPreferredSize() {
         return new Dimension(600, 400);
     }
@@ -121,5 +125,29 @@ public class PongPanel extends JPanel {
         this.revalidate();
         this.mainFrame.reAddHomePanel(mainFrame, this);
         
+    }
+
+    private void move() {
+	    ball.move();
+        
+    }
+	
+    public void paint(Graphics g) {
+        super.paint(g);
+        Graphics2D g2d=(Graphics2D)g;
+        ball.draw(g2d);
+        
+    }
+
+    public void run() {
+        while(true) {
+            ball.move();
+            repaint();
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
