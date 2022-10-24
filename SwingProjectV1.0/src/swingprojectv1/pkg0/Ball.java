@@ -13,18 +13,19 @@ package swingprojectv1.pkg0;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import javax.swing.JPanel;
 
 public class Ball {
     
-    private static final int BALL_RADIUS = 10;
+    private static final int BALL_RADIUS = 5;
     private int x=0;
     private int y=0;
     private int xSpeed=5;
     private int ySpeed=5;
-    private PongPanel pongGame;
+    private JPanel pongGame;
     Color color;
     
-    public Ball (PongPanel pongGame, int x, int y, Color color) {
+    public Ball (JPanel pongGame, int x, int y, Color color) {
         this.pongGame = pongGame;
         this.color = color;
         this.x = x;
@@ -32,20 +33,24 @@ public class Ball {
     }
     
     public void move() {
-        if (x + xSpeed < 0) {
+        int pgWidth = pongGame.getWidth() + 150;
+        int pgHeight = pongGame.getHeight() + 50;
+        if (x + xSpeed < 150) {
             xSpeed = 5;
         }
-        if (x + xSpeed > pongGame.getWidth() - 2*BALL_RADIUS) {
+        if (x + xSpeed > pgWidth - 2*BALL_RADIUS) {
             xSpeed = -5;
         }
 		
-        if (y + ySpeed < 0) {
+        if (y + ySpeed < 50) {
             ySpeed = 5;
         }
 		
-        if (y + ySpeed > pongGame.getHeight() - 2*BALL_RADIUS) {
+        if (y + ySpeed > pgHeight - 2*BALL_RADIUS) {
             ySpeed = -5;
         }
+        
+        
       
         x = x + xSpeed;
         y = y + ySpeed;
