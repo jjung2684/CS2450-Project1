@@ -55,6 +55,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.Timer;
+import javax.swing.border.Border;
 
 /**
  *
@@ -64,7 +65,7 @@ public class SudokuPanel extends JPanel implements PropertyChangeListener, Actio
 
     private MainFrame frame;
 
-    JFormattedTextField entryField1, entryField2, entryField3, entryField4,
+    private JFormattedTextField entryField1, entryField2, entryField3, entryField4,
             entryField5, entryField6, entryField7, entryField8, entryField9,
             entryField10, entryField11, entryField12, entryField13,
             entryField14, entryField15, entryField16, entryField17, entryField18,
@@ -82,6 +83,9 @@ public class SudokuPanel extends JPanel implements PropertyChangeListener, Actio
             entryField68, entryField69, entryField70, entryField71, entryField72,
             entryField73, entryField74, entryField75, entryField76,
             entryField77, entryField78, entryField79, entryField80, entryField81;
+    
+    private JPanel entryPanel1, entryPanel2, entryPanel3, entryPanel4,
+            entryPanel5, entryPanel6, entryPanel7, entryPanel8, entryPanel9;
 
     private JButton submitButton;
     private JButton quitButton;
@@ -99,13 +103,56 @@ public class SudokuPanel extends JPanel implements PropertyChangeListener, Actio
         userScore = 540;
     }
 
-    private void createGameBoard() {
+    private void createGameBoard() {        
 
-        // create Sudoku entry panel
-        JPanel entryPanel = new JPanel();
-        entryPanel.setBounds(205, 75, 190, 220);
-        entryPanel.setBackground(Color.gray);
-
+        // <editor-fold defaultstate="collapsed" desc="create Sudoku panels">
+        entryPanel1 = new JPanel();
+        entryPanel1.setBounds(170, 55, 80, 85);
+        entryPanel1.setBorder(BorderFactory.createLineBorder(Color.black, 5));
+        entryPanel1.setBackground(Color.white);
+        
+        entryPanel2 = new JPanel();
+        entryPanel2.setBounds(250, 55, 80, 85);
+        entryPanel2.setBorder(BorderFactory.createLineBorder(Color.black, 5));
+        entryPanel2.setBackground(Color.white);
+        
+        entryPanel3 = new JPanel();
+        entryPanel3.setBounds(330, 55, 80, 85);
+        entryPanel3.setBorder(BorderFactory.createLineBorder(Color.black, 5));
+        entryPanel3.setBackground(Color.white);
+        
+        entryPanel4 = new JPanel();
+        entryPanel4.setBounds(170, 140, 80, 85);
+        entryPanel4.setBorder(BorderFactory.createLineBorder(Color.black, 5));
+        entryPanel4.setBackground(Color.white);
+        
+        entryPanel5 = new JPanel();
+        entryPanel5.setBounds(250, 140, 80, 85);
+        entryPanel5.setBorder(BorderFactory.createLineBorder(Color.black, 5));
+        entryPanel5.setBackground(Color.white);
+        
+        entryPanel6 = new JPanel();
+        entryPanel6.setBounds(330, 140, 80, 85);
+        entryPanel6.setBorder(BorderFactory.createLineBorder(Color.black, 5));
+        entryPanel6.setBackground(Color.white);
+        
+        entryPanel7 = new JPanel();
+        entryPanel7.setBounds(170, 225, 80, 85);
+        entryPanel7.setBorder(BorderFactory.createLineBorder(Color.black, 5));
+        entryPanel7.setBackground(Color.white);
+        
+        entryPanel8 = new JPanel();
+        entryPanel8.setBounds(250, 225, 80, 85);
+        entryPanel8.setBorder(BorderFactory.createLineBorder(Color.black, 5));
+        entryPanel8.setBackground(Color.white);
+        
+        entryPanel9 = new JPanel();
+        entryPanel9.setBounds(330, 225, 80, 85);
+        entryPanel9.setBorder(BorderFactory.createLineBorder(Color.black, 5));
+        entryPanel9.setBackground(Color.white);
+        
+        // </editor-fold>
+        
         // <editor-fold defaultstate="collapsed" desc="create text fields">
         // row 1
         entryField1 = new JFormattedTextField();
@@ -114,6 +161,7 @@ public class SudokuPanel extends JPanel implements PropertyChangeListener, Actio
         entryField1.addPropertyChangeListener("value", this);
         entryField1.setEditable(false);
         entryField1.setForeground(new Color(255, 0, 0));
+        
 
         entryField2 = new JFormattedTextField();
         entryField2.setColumns(1);
@@ -523,91 +571,109 @@ public class SudokuPanel extends JPanel implements PropertyChangeListener, Actio
         // </editor-fold>
 
         // <editor-fold defaultstate="collapsed" desc="Add text fields to panel">
-        entryPanel.add(entryField1);
-        entryPanel.add(entryField2);
-        entryPanel.add(entryField3);
-        entryPanel.add(entryField4);
-        entryPanel.add(entryField5);
-        entryPanel.add(entryField6);
-        entryPanel.add(entryField7);
-        entryPanel.add(entryField8);
-        entryPanel.add(entryField9);
-        entryPanel.add(entryField10);
-        entryPanel.add(entryField11);
-        entryPanel.add(entryField12);
-        entryPanel.add(entryField13);
-        entryPanel.add(entryField14);
-        entryPanel.add(entryField15);
-        entryPanel.add(entryField16);
-        entryPanel.add(entryField17);
-        entryPanel.add(entryField18);
-        entryPanel.add(entryField19);
-        entryPanel.add(entryField20);
-        entryPanel.add(entryField21);
-        entryPanel.add(entryField22);
-        entryPanel.add(entryField23);
-        entryPanel.add(entryField24);
-        entryPanel.add(entryField25);
-        entryPanel.add(entryField26);
-        entryPanel.add(entryField27);
-        entryPanel.add(entryField28);
-        entryPanel.add(entryField29);
-        entryPanel.add(entryField30);
-        entryPanel.add(entryField31);
-        entryPanel.add(entryField32);
-        entryPanel.add(entryField33);
-        entryPanel.add(entryField34);
-        entryPanel.add(entryField35);
-        entryPanel.add(entryField36);
-        entryPanel.add(entryField37);
-        entryPanel.add(entryField38);
-        entryPanel.add(entryField39);
-        entryPanel.add(entryField40);
-        entryPanel.add(entryField41);
-        entryPanel.add(entryField42);
-        entryPanel.add(entryField43);
-        entryPanel.add(entryField44);
-        entryPanel.add(entryField45);
-        entryPanel.add(entryField46);
-        entryPanel.add(entryField47);
-        entryPanel.add(entryField48);
-        entryPanel.add(entryField49);
-        entryPanel.add(entryField50);
-        entryPanel.add(entryField51);
-        entryPanel.add(entryField52);
-        entryPanel.add(entryField53);
-        entryPanel.add(entryField54);
-        entryPanel.add(entryField55);
-        entryPanel.add(entryField56);
-        entryPanel.add(entryField57);
-        entryPanel.add(entryField58);
-        entryPanel.add(entryField59);
-        entryPanel.add(entryField60);
-        entryPanel.add(entryField61);
-        entryPanel.add(entryField62);
-        entryPanel.add(entryField63);
-        entryPanel.add(entryField64);
-        entryPanel.add(entryField65);
-        entryPanel.add(entryField66);
-        entryPanel.add(entryField67);
-        entryPanel.add(entryField68);
-        entryPanel.add(entryField69);
-        entryPanel.add(entryField70);
-        entryPanel.add(entryField71);
-        entryPanel.add(entryField72);
-        entryPanel.add(entryField73);
-        entryPanel.add(entryField74);
-        entryPanel.add(entryField75);
-        entryPanel.add(entryField76);
-        entryPanel.add(entryField77);
-        entryPanel.add(entryField78);
-        entryPanel.add(entryField79);
-        entryPanel.add(entryField80);
-        entryPanel.add(entryField81);
+        
+        entryPanel1.add(entryField1);
+        entryPanel1.add(entryField2);
+        entryPanel1.add(entryField3);
+        entryPanel1.add(entryField10);
+        entryPanel1.add(entryField11);
+        entryPanel1.add(entryField12);
+        entryPanel1.add(entryField19);
+        entryPanel1.add(entryField20);
+        entryPanel1.add(entryField21);
+        
+        entryPanel2.add(entryField4);
+        entryPanel2.add(entryField5);
+        entryPanel2.add(entryField6);
+        entryPanel2.add(entryField13);
+        entryPanel2.add(entryField14);
+        entryPanel2.add(entryField15);
+        entryPanel2.add(entryField22);
+        entryPanel2.add(entryField23);
+        entryPanel2.add(entryField24);
+        
+        entryPanel3.add(entryField7);
+        entryPanel3.add(entryField8);
+        entryPanel3.add(entryField9);
+        entryPanel3.add(entryField16);
+        entryPanel3.add(entryField17);
+        entryPanel3.add(entryField18);
+        entryPanel3.add(entryField25);
+        entryPanel3.add(entryField26);
+        entryPanel3.add(entryField27);
+        
+        entryPanel4.add(entryField28);
+        entryPanel4.add(entryField29);
+        entryPanel4.add(entryField30);
+        entryPanel4.add(entryField37);
+        entryPanel4.add(entryField38);
+        entryPanel4.add(entryField39);
+        entryPanel4.add(entryField46);
+        entryPanel4.add(entryField47);
+        entryPanel4.add(entryField48);
+        
+        entryPanel5.add(entryField31);
+        entryPanel5.add(entryField32);
+        entryPanel5.add(entryField33);
+        entryPanel5.add(entryField40);
+        entryPanel5.add(entryField41);
+        entryPanel5.add(entryField42);
+        entryPanel5.add(entryField49);
+        entryPanel5.add(entryField50);
+        entryPanel5.add(entryField51);
+        
+        entryPanel6.add(entryField34);
+        entryPanel6.add(entryField35);
+        entryPanel6.add(entryField36);
+        entryPanel6.add(entryField43);
+        entryPanel6.add(entryField44);
+        entryPanel6.add(entryField45);
+        entryPanel6.add(entryField52);
+        entryPanel6.add(entryField53);
+        entryPanel6.add(entryField54);
+        
+        entryPanel7.add(entryField55);
+        entryPanel7.add(entryField56);
+        entryPanel7.add(entryField57);
+        entryPanel7.add(entryField64);
+        entryPanel7.add(entryField65);
+        entryPanel7.add(entryField66);
+        entryPanel7.add(entryField73);
+        entryPanel7.add(entryField74);
+        entryPanel7.add(entryField75);
+        
+        entryPanel8.add(entryField58);
+        entryPanel8.add(entryField59);
+        entryPanel8.add(entryField60);
+        entryPanel8.add(entryField67);
+        entryPanel8.add(entryField68);
+        entryPanel8.add(entryField69);
+        entryPanel8.add(entryField76);
+        entryPanel8.add(entryField77);
+        entryPanel8.add(entryField78);
+        
+        entryPanel9.add(entryField61);
+        entryPanel9.add(entryField62);
+        entryPanel9.add(entryField63);
+        entryPanel9.add(entryField70);
+        entryPanel9.add(entryField71);
+        entryPanel9.add(entryField72);
+        entryPanel9.add(entryField79);
+        entryPanel9.add(entryField80);
+        entryPanel9.add(entryField81);
+        
         // </editor-fold>
 
         // add sudoku entry panel to sudoku panel
-        add(entryPanel);
+        add(entryPanel1);
+        add(entryPanel2);
+        add(entryPanel3);
+        add(entryPanel4);
+        add(entryPanel5);
+        add(entryPanel6);
+        add(entryPanel7);
+        add(entryPanel8);
+        add(entryPanel9);
 
         // add buttons
         submitButton = new JButton("Submit");
@@ -726,15 +792,6 @@ public class SudokuPanel extends JPanel implements PropertyChangeListener, Actio
         g2.setColor(Color.red);
         g2.drawString("Sudoku", 10, 30);
 
-        // 8 horizontal lines
-//        g2.drawLine(100, 50, 500, 50);
-//        g2.drawLine(100, 100, 500, 100);
-//        g2.drawLine(100, 150, 500, 150);
-//        g2.drawLine(100, 200, 500, 200);
-//        g2.drawLine(100, 250, 500, 250);
-//        g2.drawLine(100, 300, 500, 300);
-//        g2.drawLine(100, 350, 500, 350);
-//        g2.drawLine(100, 400, 500, 400);
     }
 
     @Override
