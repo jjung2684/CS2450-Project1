@@ -8,6 +8,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -49,8 +50,12 @@ public class PongPanel extends JPanel implements Runnable {
 
     public PongPanel(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
+        
         this.setFocusable(true);
-        this.requestFocus();
+        
+        
+        //this.setRequestFocusEnabled(true);
+        
         initComponents();
         setLayout(new BorderLayout());
         this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
@@ -62,7 +67,9 @@ public class PongPanel extends JPanel implements Runnable {
                 startLabel.setVisible(false);
             }
         });
-
+        this.addKeyListener(new AL());
+        
+        
     }
 
     private void initComponents() {
@@ -72,10 +79,10 @@ public class PongPanel extends JPanel implements Runnable {
         pongGamePanel.setBounds(150, 50, 300, 250);
         System.out.println(pongGamePanel.getWidth());
         pongGamePanel.setBackground(Color.BLACK);
-        add(pongGamePanel);
-        ball = new Ball(this, 300, 175);
-        paddle_1 = new Paddle(this, 160, 150, Color.WHITE);
-        paddle_2 = new Paddle( this, 430, 150,Color.WHITE);
+        //add(pongGamePanel);
+        ball = new Ball(this,Color.GREEN);
+        paddle_1 = new Paddle(this, 10, 150, Color.WHITE, 1);
+        paddle_2 = new Paddle( this, 560, 150,Color.WHITE, 2);
         // add buttons
         quitButton = new JButton("Quit");
         startLabel = new JLabel("Press Space to start!");
@@ -112,6 +119,7 @@ public class PongPanel extends JPanel implements Runnable {
 
         time();
         thread = new Thread(this);
+        this.requestFocusInWindow();
 
     }
 
@@ -153,17 +161,15 @@ public class PongPanel extends JPanel implements Runnable {
 
     private void move() {
         ball.move();
+        paddle_1.move();
+        paddle_2.move();
 
     }
 
     public void paint(Graphics g) {
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
-        try {
-            ball.draw(g2d);
-        } catch (IOException ex) {
-            Logger.getLogger(PongPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        ball.draw(g2d);
         paddle_1.draw(g2d);
         paddle_2.draw(g2d);
 
@@ -227,9 +233,7 @@ public class PongPanel extends JPanel implements Runnable {
     public void run() {
         System.out.println("Running");
         while (true) {
-            ball.move();
-            movePaddle_1();
-            movePaddle_2();
+            move();
             
 //            paddle_1.move();
 //            paddle_2.move();
@@ -242,5 +246,18 @@ public class PongPanel extends JPanel implements Runnable {
 
         }
     }
+    public class AL extends KeyAdapter{
+	public void keyPressed(KeyEvent e) {
+            paddle_1.keyPressed(e);
+            paddle_2.keyPressed(e);
+		
+            }
+	public void keyReleased(KeyEvent e) {
+            paddle_1.keyReleased(e);
+            paddle_2.keyReleased(e);
+            
+            }
+	}
+    
     
 }
