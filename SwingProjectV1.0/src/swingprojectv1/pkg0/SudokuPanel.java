@@ -107,47 +107,47 @@ public class SudokuPanel extends JPanel implements PropertyChangeListener, Actio
 
         // <editor-fold defaultstate="collapsed" desc="create Sudoku panels">
         entryPanel1 = new JPanel();
-        entryPanel1.setBounds(170, 55, 85, 85);
+        entryPanel1.setBounds(170, 55, 80, 85);
         entryPanel1.setBorder(BorderFactory.createLineBorder(Color.black, 5));
         entryPanel1.setBackground(Color.white);
         
         entryPanel2 = new JPanel();
-        entryPanel2.setBounds(255, 55, 85, 85);
+        entryPanel2.setBounds(250, 55, 80, 85);
         entryPanel2.setBorder(BorderFactory.createLineBorder(Color.black, 5));
         entryPanel2.setBackground(Color.white);
         
         entryPanel3 = new JPanel();
-        entryPanel3.setBounds(340, 55, 85, 85);
+        entryPanel3.setBounds(330, 55, 80, 85);
         entryPanel3.setBorder(BorderFactory.createLineBorder(Color.black, 5));
         entryPanel3.setBackground(Color.white);
         
         entryPanel4 = new JPanel();
-        entryPanel4.setBounds(170, 140, 85, 85);
+        entryPanel4.setBounds(170, 140, 80, 85);
         entryPanel4.setBorder(BorderFactory.createLineBorder(Color.black, 5));
         entryPanel4.setBackground(Color.white);
         
         entryPanel5 = new JPanel();
-        entryPanel5.setBounds(255, 140, 85, 85);
+        entryPanel5.setBounds(250, 140, 80, 85);
         entryPanel5.setBorder(BorderFactory.createLineBorder(Color.black, 5));
         entryPanel5.setBackground(Color.white);
         
         entryPanel6 = new JPanel();
-        entryPanel6.setBounds(340, 140, 85, 85);
+        entryPanel6.setBounds(330, 140, 80, 85);
         entryPanel6.setBorder(BorderFactory.createLineBorder(Color.black, 5));
         entryPanel6.setBackground(Color.white);
         
         entryPanel7 = new JPanel();
-        entryPanel7.setBounds(170, 225, 85, 85);
+        entryPanel7.setBounds(170, 225, 80, 85);
         entryPanel7.setBorder(BorderFactory.createLineBorder(Color.black, 5));
         entryPanel7.setBackground(Color.white);
         
         entryPanel8 = new JPanel();
-        entryPanel8.setBounds(255, 225, 85, 85);
+        entryPanel8.setBounds(250, 225, 80, 85);
         entryPanel8.setBorder(BorderFactory.createLineBorder(Color.black, 5));
         entryPanel8.setBackground(Color.white);
         
         entryPanel9 = new JPanel();
-        entryPanel9.setBounds(340, 225, 85, 85);
+        entryPanel9.setBounds(330, 225, 80, 85);
         entryPanel9.setBorder(BorderFactory.createLineBorder(Color.black, 5));
         entryPanel9.setBackground(Color.white);
         
