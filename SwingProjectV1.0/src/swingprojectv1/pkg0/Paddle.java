@@ -52,13 +52,13 @@ public class Paddle{
     public void move()
     {
         paddle.y += yDirection;
-          if (this.y <= 50) {
+          if (paddle.y <= 50) {
             //do nothing
-            this.y = 50;
+            paddle.y = 50;
           }
-          if ( this.y>= 260)
+          if ( paddle.y>= 260)
           {
-              this.y = 260;
+              paddle.y = 260;
           }
 
     }
