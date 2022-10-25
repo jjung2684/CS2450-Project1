@@ -33,6 +33,7 @@ public class Ball {
     Color color;
     private int xDirection;
     private int yDirection;
+    Rectangle ball;
 
   
 
@@ -40,6 +41,8 @@ public class Ball {
         this.game = game;
         this.color = color;
         this.game = game;
+	this.x = x;
+        this.y = y;
         
         Random rand = new Random(); //creats Random numbers  
         int randDirection = rand.nextInt(1);
@@ -52,6 +55,7 @@ public class Ball {
             yRandDir -= 2;
         }
         setYDir(yRandDir);
+	ball = new Rectangle(x, y, RADIUS*2, RADIUS*2);
         
     }
 
