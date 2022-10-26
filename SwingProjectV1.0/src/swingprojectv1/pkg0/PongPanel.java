@@ -20,6 +20,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.Timer;
 
@@ -144,6 +145,21 @@ public class PongPanel extends JPanel implements Runnable {
 
         this.mainFrame.repaint();
         this.mainFrame.revalidate();
+        
+        if (ps.getP1() >= 100 ) {
+            JOptionPane.showMessageDialog(mainFrame, "Player 1 won!");
+            ps.setP1(0);
+            ps.setP2(0);
+            resetGame();
+            
+        }
+        
+        if (ps.getP2() >= 100) {
+            JOptionPane.showMessageDialog(mainFrame, "Player 2 won!");
+            ps.setP1(0);
+            ps.setP2(0);
+            resetGame();
+        }
 
     }
 
