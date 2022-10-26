@@ -112,6 +112,7 @@ public class EndScreenPanel extends JPanel {
         userScoreField.setBounds(120, 170, 400, 30);
         goHomeButton.setSize(new Dimension(80, 30));
         goHomeButton.setLocation(270, 220);
+        goHomeButton.setToolTipText("Use this button to return to home screen");
         
         goHomeButton.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent event) {
