@@ -12,7 +12,15 @@
  *************************************************************** */
 package swingprojectv1.pkg0;
 
+import java.awt.BorderLayout;
+import static java.awt.BorderLayout.CENTER;
+import static java.awt.BorderLayout.PAGE_END;
+import static java.awt.BorderLayout.PAGE_START;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -38,13 +46,15 @@ public class EndScreenPanel extends JPanel {
     private ImageIcon backgroundIcon;
     private ColorGameScreen colorGame;
     private SudokuPanel sudoku;
+    private JButton goHomeButton;
 
     private int score = 0;
     private String gameEndMessage = "Game Over!";
     private String nextGameButtonMessage = "Next Game";
     private MainFrame mainFrame;
     private String resetGameButtonMessage;
-    private boolean dummy=false;
+    private boolean dummy = false;
+    private int playerScore, playerID;
 
     public EndScreenPanel(String imageFile, MainFrame mainFrame, int playerScore, String gameOverMessage) throws IOException {
         this.mainFrame = mainFrame;
@@ -61,8 +71,51 @@ public class EndScreenPanel extends JPanel {
 
     public EndScreenPanel(String imageFile, MainFrame mainFrame, int playerScore, String gameOverMessage, boolean dummy) throws IOException {
         this(imageFile, mainFrame, playerScore, gameOverMessage);
-        this.dummy= dummy;
+        this.dummy = dummy;
         this.resetGameButtonMessage = "Reset Game";
+    }
+
+    public EndScreenPanel(MainFrame mainFrame, int playerScore, int playerID, String gameOverMessage) throws IOException {
+        this.mainFrame = mainFrame;
+        this.playerScore = playerScore;
+        this.playerID = playerID;
+        this.gameEndMessage = gameOverMessage;
+        initPongEndComponents();
+
+    }
+
+    private void initPongEndComponents() {
+        int adjustY = -100;
+        GridBagLayout gbl = new GridBagLayout();
+        GridBagConstraints c = new GridBagConstraints();
+
+        this.setLayout(gbl);
+
+        this.goHomeButton = new JButton();
+        this.gameOverField = new JLabel();
+        this.userScoreField = new JLabel();
+        JLabel winnerField = new JLabel();
+
+        winnerField.setFont(new Font("Sans-Serif", Font.BOLD, 30));
+        gameOverField.setFont(new Font("Sans-Serif", Font.BOLD, 50));
+        userScoreField.setFont(new Font("Sans-Serif", Font.BOLD, 50));
+
+        winnerField.setText("The Winner is: Player " + Integer.toString(playerID));
+        gameOverField.setText(this.gameEndMessage);
+        userScoreField.setText(Integer.toString(this.playerScore));
+
+        add(winnerField, BorderLayout.PAGE_START);
+        add(gameOverField, BorderLayout.CENTER);
+        add(userScoreField, BorderLayout.PAGE_END);
+
+        winnerField.setHorizontalAlignment(JLabel.CENTER);
+        gameOverField.setHorizontalAlignment(JLabel.CENTER);
+        userScoreField.setHorizontalAlignment(JLabel.CENTER);
+
+        winnerField.setPreferredSize(new Dimension(50, 50));
+        gameOverField.setPreferredSize(new Dimension(50, 50));
+        userScoreField.setPreferredSize(new Dimension(50, 50));
+
     }
 
     private void initComponents() {
@@ -93,32 +146,32 @@ public class EndScreenPanel extends JPanel {
         userScoreField.setText("Your Score: " + this.score);
         add(userScoreField);
         userScoreField.setBounds(210, 200 + adjustY, 300, 60);
-        if (!dummy){
+        if (!dummy) {
 
-        nextGameButton.setFont(new Font("Sans-Serif", Font.PLAIN, 35));
-        nextGameButton.setText(nextGameButtonMessage);
-        nextGameButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                System.out.println("The current panel is " + ((JButton) event.getSource()).getParent());
-                //nextGame();
-            }
-        });
-        //add(nextGameButton);
-        nextGameButton.setBounds(150, 275 + adjustY, 300, 60);
-        }else{
-            restartButton.setText(this.resetGameButtonMessage);
-        add(restartButton);
-        restartButton.setBounds(150, 275 + adjustY, 300, 60);
-        restartButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                System.out.println("The current panel is " + ((JButton) event.getSource()).getParent());
-                try {
-                    restartGame();
-                } catch (IOException ex) {
-                    Logger.getLogger(EndScreenPanel.class.getName()).log(Level.SEVERE, null, ex);
+            nextGameButton.setFont(new Font("Sans-Serif", Font.PLAIN, 35));
+            nextGameButton.setText(nextGameButtonMessage);
+            nextGameButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent event) {
+                    System.out.println("The current panel is " + ((JButton) event.getSource()).getParent());
+                    //nextGame();
                 }
-            }
-        });
+            });
+            //add(nextGameButton);
+            nextGameButton.setBounds(150, 275 + adjustY, 300, 60);
+        } else {
+            restartButton.setText(this.resetGameButtonMessage);
+            add(restartButton);
+            restartButton.setBounds(150, 275 + adjustY, 300, 60);
+            restartButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent event) {
+                    System.out.println("The current panel is " + ((JButton) event.getSource()).getParent());
+                    try {
+                        restartGame();
+                    } catch (IOException ex) {
+                        Logger.getLogger(EndScreenPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            });
         }
 
         skipGameButton.setFont(new Font("Sans-Serif", Font.PLAIN, 35));
@@ -139,7 +192,7 @@ public class EndScreenPanel extends JPanel {
         add(restartButton);
         restartButton.setFont(new Font("Sans-Serif", Font.PLAIN, 35));
         restartButton.setText("Reset Game");
-         restartButton.addActionListener(new ActionListener() {
+        restartButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 System.out.println("The current panel is " + ((JButton) event.getSource()).getParent());
                 try {
@@ -158,11 +211,11 @@ public class EndScreenPanel extends JPanel {
         this.revalidate();
         this.mainFrame.reAddHomePanel(mainFrame, this);
     }
-    
+
     private void restartGame() throws IOException {
         this.mainFrame.remove(this);
         this.mainFrame.add(sudoku);
-        
+
         this.mainFrame.repaint();
         this.mainFrame.revalidate();
     }

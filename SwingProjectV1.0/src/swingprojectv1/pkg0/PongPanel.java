@@ -59,21 +59,27 @@ public class PongPanel extends JPanel implements Runnable {
 
         initComponents();
         setLayout(new BorderLayout());
+        
         this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
                 KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0), "Start");
+        
         this.getActionMap().put("Start", new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
+                if(!startBool){
                 startGame();
                 startLabel.setVisible(false);
+                
+                }
+                
+                
             }
         });
+        
+        
         this.addKeyListener(new AL());
 
-        
-        
     }
 
-   
     private void initComponents() {
 
         // create pong game panel
@@ -85,7 +91,7 @@ public class PongPanel extends JPanel implements Runnable {
         ball = new Ball(this, Color.GREEN, 300, 175);
         paddle_1 = new Paddle(this, 150, 150, Color.CYAN, 1);
         paddle_2 = new Paddle(this, 430, 150, Color.RED, 2);
-   
+
         // add buttons
         quitButton = new JButton("Quit");
         startLabel = new JLabel("Press Space to start!");
@@ -126,47 +132,14 @@ public class PongPanel extends JPanel implements Runnable {
         exit = false;
 
         thread = new Thread(this);
-                this.requestFocusInWindow();
-
-
-    }
-    
-    public void updatePs()
-    {
-        
-    }
-
-    public void resetGame() {
-        exit = true;
-        System.out.println("Player 1 score: " + ps.getP1() + "\nPlayer 2 score: " + ps.getP2());
-        this.mainFrame.remove(this);
-        this.pong = new PongPanel(this.mainFrame, ps);
-        this.mainFrame.add(pong);
-
-        this.mainFrame.repaint();
-        this.mainFrame.revalidate();
-        
-        if (ps.getP1() >= 100 ) {
-            JOptionPane.showMessageDialog(mainFrame, "Player 1 won!");
-            ps.setP1(0);
-            ps.setP2(0);
-            resetGame();
-            
-        }
-        
-        if (ps.getP2() >= 100) {
-            JOptionPane.showMessageDialog(mainFrame, "Player 2 won!");
-            ps.setP1(0);
-            ps.setP2(0);
-            resetGame();
-        }
+        this.requestFocusInWindow();
 
     }
 
+  
     public void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
         super.paintComponent(g);
-       
 
         g2.setFont(new Font("Brush Script MT", Font.BOLD, 36));
         g2.setColor(Color.orange);
@@ -175,10 +148,10 @@ public class PongPanel extends JPanel implements Runnable {
         g2.setFont(new Font("Arial", Font.BOLD, 16));
         g2.setColor(Color.black);
         g2.drawString("Player 1 Score: ", 10, 100);
-        
+
         g2.setFont(new Font("Arial", Font.BOLD, 25));
-        g2.drawString( Integer.toString(ps.getP1()), 60, 140);
-        g2.drawString( Integer.toString(ps.getP2()), 520, 140);
+        g2.drawString(Integer.toString(ps.getP1()), 60, 140);
+        g2.drawString(Integer.toString(ps.getP2()), 520, 140);
 
         g2.setFont(new Font("Arial", Font.BOLD, 16));
         g2.setColor(Color.black);
@@ -191,6 +164,8 @@ public class PongPanel extends JPanel implements Runnable {
 
     public void startGame() {
         thread.start();
+        startBool = true;
+        
     }
 
     public void quitGame() throws IOException {
@@ -199,6 +174,31 @@ public class PongPanel extends JPanel implements Runnable {
         this.revalidate();
         this.mainFrame.reAddHomePanel(mainFrame, this);
 
+    }
+
+    public void resetGame() {
+        exit = true;
+        System.out.println("Player 1 score: " + ps.getP1() + "\nPlayer 2 score: " + ps.getP2());
+        this.mainFrame.remove(this);
+        this.pong = new PongPanel(this.mainFrame, ps);
+        this.mainFrame.add(pong);
+
+        this.mainFrame.repaint();
+        this.mainFrame.revalidate();
+
+    }
+
+    
+    public void endGame(int winnerID, int winnerScore) throws IOException
+    {
+        exit = true;
+        this.mainFrame.remove(this);
+        this.endScreen = new EndScreenPanel(this.mainFrame, winnerScore, winnerID, "Congrats!");
+        this.mainFrame.add(this.endScreen);
+        this.mainFrame.repaint();
+        this.mainFrame.revalidate();
+        
+        
     }
 
     private void move() throws IOException {
@@ -221,19 +221,19 @@ public class PongPanel extends JPanel implements Runnable {
         System.out.println("Running");
         while (!exit) {
             try {
-                move();
+                move();                
                 repaint();
+               
             } catch (IOException ex) {
                 Logger.getLogger(PongPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
-             try {
+            try {
                 Thread.sleep(10);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
-        
-    }
+        }
     }
 
     public class AL extends KeyAdapter {
@@ -252,6 +252,3 @@ public class PongPanel extends JPanel implements Runnable {
     }
 
 }
-
-    
-
