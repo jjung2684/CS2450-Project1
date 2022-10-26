@@ -27,8 +27,8 @@ public class Ball {
     private static final int RADIUS=10;
     private int x=0;
     private int y=0;
-    private int xspeed=3;
-    private int yspeed=3;
+    private int xspeed=0;
+    private int yspeed=0;
     private PongPanel game;
     Color color;
     private int xDirection;
@@ -47,16 +47,20 @@ public class Ball {
 
         
         Random rand = new Random(); //creats Random numbers  
-        int randDirection = rand.nextInt(1);
-        if (randDirection == 0) {
-            randDirection -= 2;
+        int randDirection = rand.nextInt(10);
+        if (randDirection < 5) {
+            xspeed -= 3;
+        }else{
+            xspeed = 3;
         }
-        setXDir(randDirection);
-        int yRandDir = rand.nextInt(1);
-        if (yRandDir == 0) {
-            yRandDir -= 2;
+//        setXDir(xspeed);
+        int yRandDir = rand.nextInt(10);
+        if (yRandDir > 5 ) {
+            yspeed -= 3;
+        }else{
+            yspeed = 3;
         }
-        setYDir(yRandDir);
+//        setYDir(yspeed);
 	ball = new Rectangle(x, y, RADIUS*2, RADIUS*2);
         
     }
@@ -73,11 +77,23 @@ public class Ball {
     public void move() throws IOException {
 	if (x+xspeed<150) {
             game.ps.setP2(s2 += 10);
-            game.resetGame();
+            if(s2 == 100)
+            {
+                game.endGame(2, s2);
+            }
+            else{
+                 game.resetGame();
+            }
+           
 	}
 	if (x+xspeed>435) {
             game.ps.setP1(s1 += 10);
+            if(s1 == 100)
+            {
+                game.endGame(1, s1);
+            }else{
 		game.resetGame();
+            }
 
         }
 	if (y+yspeed<50) {
