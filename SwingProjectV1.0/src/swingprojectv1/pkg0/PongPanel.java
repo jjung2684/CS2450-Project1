@@ -88,7 +88,7 @@ public class PongPanel extends JPanel implements Runnable {
         pongGamePanel.setBackground(Color.BLACK);
         add(pongGamePanel);
 
-        ball = new Ball(this, Color.GREEN, 300, 175);
+        ball = new Ball(this, Color.WHITE, 300, 175);
         paddle_1 = new Paddle(this, 150, 150, Color.CYAN, 1);
         paddle_2 = new Paddle(this, 430, 150, Color.RED, 2);
 
