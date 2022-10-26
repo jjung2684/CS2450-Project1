@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package swingprojectv1.pkg0;
 
 import java.awt.Color;
@@ -25,80 +21,91 @@ import javax.swing.KeyStroke;
  *
  * @author spencer
  */
-public class Paddle{
+public class Paddle {
 
-    private static int PADDLE_WIDTH = 20;
+    private static final int PADDLE_WIDTH = 20;
+    private static final int PADDLE_HEIGHT = 80;
     private int x = 0;
     private int y = 0;
     private int xSpeed = 5;
-    private int ySpeed = 5;
-    private JPanel pongGame;
+    private int ySpeed = 0;
+    private PongPanel pongGame;
     private int yDirection = 0;
     Rectangle paddle;
+    private final int userID;
+    Color color;
 
-    public Paddle(JPanel pongGame, int x, int y,Color color) {
+    public Paddle(PongPanel pongGame, int x, int y, Color color, int userID) {
         this.x = x;
         this.y = y;
-        paddle= new Rectangle(x, y, 10,40);
-
-
-
-
-    }
-    
-
-
-    
-    public void move()
-    {
-        paddle.y += yDirection;
-          if (paddle.y <= 50) {
-            //do nothing
-            paddle.y = 50;
-          }
-          if ( paddle.y>= 260)
-          {
-              paddle.y = 260;
-          }
+        //paddle= new Rectangle(x, y, 10,40);
+        this.color = color;
+        this.pongGame = pongGame;
+        this.userID = userID;
 
     }
-//
-//    public void moveUp(Paddle paddle) {
-//        if (paddle.y <= 50) {
-//            //do
-//            paddle.y = 50;
-//
-//        } else {
-//            paddle.y -= 5;
-//        }
-//
-//    }
-//    public void moveDW(Paddle paddle) {
-//        if (paddle.y >= 260) {
-//            //do nothing
-//
-//        } else {
-//            paddle.y += 5;
-//        }
-//
-//    }
-//    
-    public void setYDir(int dir){
+
+    public void move() {
+        this.pongGame.requestFocus();
+        if (y + ySpeed > 50 && y + ySpeed < 300 - PADDLE_HEIGHT) {
+            y = y + ySpeed;
+        }
+
+    }
+
+    public void setYDir(int dir) {
         yDirection = dir;
     }
 //    
 
     public void draw(Graphics2D g) {
-        g.setColor(Color.WHITE);
-        g.draw(paddle);
-//        g.fillRect(x, y, 10, PADDLE_WIDTH * 2);
+//       g.setColor(Color.WHITE);
+        g.setColor(color);
+        //g.draw(paddle);
+        g.fillRect(x, y, PADDLE_WIDTH, PADDLE_HEIGHT);
 
     }
 
- 
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_W && userID == 1) {
+            ySpeed = -6; // goes up
 
+        }
+        if (e.getKeyCode() == KeyEvent.VK_S && userID == 1) {
+            ySpeed = 6;// goes down
 
-  
+        }
+        if (e.getKeyCode() == KeyEvent.VK_UP && userID == 2) {
+            ySpeed = -6; // goes up
+
+        }
+        if (e.getKeyCode() == KeyEvent.VK_DOWN && userID == 2) {
+            ySpeed = 6; // goes down
+
+        }
+    }
+
+    public void keyReleased(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_W) {
+            ySpeed = 0; // stops moving
+
+        }
+        if (e.getKeyCode() == KeyEvent.VK_S) {
+            ySpeed = 0;  // stops moving
+
+        }
+        if (e.getKeyCode() == KeyEvent.VK_UP) {
+            ySpeed = 0;  // stops moving
+
+        }
+        if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+            ySpeed = 0;  // stops moving
+
+        }
+    }
+
+    public Rectangle getBounds() {
+        return new Rectangle(x, y, PADDLE_WIDTH, PADDLE_HEIGHT);
+    }
 
 }
-
