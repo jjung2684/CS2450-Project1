@@ -36,16 +36,15 @@ public class Ball {
     Rectangle ball;
     int s1, s2;
 
-  
 
     public Ball(PongPanel game, Color color, int x, int y) {
         this.game = game;
         this.color = color;
-        this.game = game;
 	this.x = x;
         this.y = y;
         s1 = game.ps.getP1();
         s2 = game.ps.getP2();
+
         
         Random rand = new Random(); //creats Random numbers  
         int randDirection = rand.nextInt(1);
@@ -73,15 +72,14 @@ public class Ball {
 
     public void move() throws IOException {
 	if (x+xspeed<150) {
-//		xspeed=4;
             game.ps.setP2(s2 += 10);
             game.resetGame();
 	}
 	if (x+xspeed>435) {
             game.ps.setP1(s1 += 10);
 		game.resetGame();
-	}
-		
+
+        }
 	if (y+yspeed<50) {
 		yspeed=4;
 	}

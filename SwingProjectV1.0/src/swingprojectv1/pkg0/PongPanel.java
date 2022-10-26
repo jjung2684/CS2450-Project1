@@ -68,8 +68,11 @@ public class PongPanel extends JPanel implements Runnable {
         });
         this.addKeyListener(new AL());
 
+        
+        
     }
 
+   
     private void initComponents() {
 
         // create pong game panel
@@ -81,6 +84,7 @@ public class PongPanel extends JPanel implements Runnable {
         ball = new Ball(this, Color.GREEN, 300, 175);
         paddle_1 = new Paddle(this, 150, 150, Color.CYAN, 1);
         paddle_2 = new Paddle(this, 430, 150, Color.RED, 2);
+   
         // add buttons
         quitButton = new JButton("Quit");
         startLabel = new JLabel("Press Space to start!");
@@ -121,6 +125,8 @@ public class PongPanel extends JPanel implements Runnable {
         exit = false;
 
         thread = new Thread(this);
+                this.requestFocusInWindow();
+
 
     }
     
@@ -200,17 +206,18 @@ public class PongPanel extends JPanel implements Runnable {
         while (!exit) {
             try {
                 move();
+                repaint();
             } catch (IOException ex) {
                 Logger.getLogger(PongPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
-            repaint();
-            try {
+             try {
                 Thread.sleep(10);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
-        }
+        
+    }
     }
 
     public class AL extends KeyAdapter {
@@ -229,3 +236,6 @@ public class PongPanel extends JPanel implements Runnable {
     }
 
 }
+
+    
+
