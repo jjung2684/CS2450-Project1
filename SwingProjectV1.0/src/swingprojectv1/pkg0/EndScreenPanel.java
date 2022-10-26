@@ -85,11 +85,12 @@ public class EndScreenPanel extends JPanel {
     }
 
     private void initPongEndComponents() {
+        this.setLayout(null);
+        this.setSize(new Dimension(600, 400));
         int adjustY = -100;
-        GridBagLayout gbl = new GridBagLayout();
-        GridBagConstraints c = new GridBagConstraints();
-
-        this.setLayout(gbl);
+        this.imageLabel = new JLabel();
+       imageLabel.setBounds(0, 0, 600, 400);
+        add(imageLabel);
 
         this.goHomeButton = new JButton();
         this.gameOverField = new JLabel();
@@ -97,25 +98,36 @@ public class EndScreenPanel extends JPanel {
         JLabel winnerField = new JLabel();
 
         winnerField.setFont(new Font("Sans-Serif", Font.BOLD, 30));
-        gameOverField.setFont(new Font("Sans-Serif", Font.BOLD, 50));
-        userScoreField.setFont(new Font("Sans-Serif", Font.BOLD, 50));
+        gameOverField.setFont(new Font("Sans-Serif", Font.BOLD, 40));
+        userScoreField.setFont(new Font("Sans-Serif", Font.BOLD, 30));
+        goHomeButton.setText("Home");
+//        goHomeButton.setSize(new Dimension(100, 50));
 
         winnerField.setText("The Winner is: Player " + Integer.toString(playerID));
         gameOverField.setText(this.gameEndMessage);
-        userScoreField.setText(Integer.toString(this.playerScore));
-
-        add(winnerField, BorderLayout.PAGE_START);
-        add(gameOverField, BorderLayout.CENTER);
-        add(userScoreField, BorderLayout.PAGE_END);
-
-        winnerField.setHorizontalAlignment(JLabel.CENTER);
-        gameOverField.setHorizontalAlignment(JLabel.CENTER);
-        userScoreField.setHorizontalAlignment(JLabel.CENTER);
-
-        winnerField.setPreferredSize(new Dimension(50, 50));
-        gameOverField.setPreferredSize(new Dimension(50, 50));
-        userScoreField.setPreferredSize(new Dimension(50, 50));
-
+        userScoreField.setText("You Scored: " + Integer.toString(this.playerScore) + " Points");
+        
+        gameOverField.setBounds(200, 50, 300, 60);
+        winnerField.setBounds(120, 120, 400, 30);
+        userScoreField.setBounds(120, 170, 400, 30);
+        goHomeButton.setSize(new Dimension(80, 30));
+        goHomeButton.setLocation(270, 220);
+        
+        goHomeButton.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent event) {
+                try {
+                    returnToHomeScreen();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        
+        add(gameOverField);
+        add(winnerField);
+        add(userScoreField);
+        add(goHomeButton);
+        
     }
 
     private void initComponents() {
