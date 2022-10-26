@@ -44,6 +44,7 @@ public class MainFrame extends JFrame implements WindowListener, ActionListener 
     CreditsPanel creditsPanel;
     SudokuPanel sudokuPanel;
     PongPanel pongPanel;
+    PongScore ps;
     
 
     public MainFrame(String title) {
@@ -151,13 +152,25 @@ public class MainFrame extends JFrame implements WindowListener, ActionListener 
     
     public void addPongScreen() throws IOException {
         this.remove(hp);
-        pongPanel = new PongPanel(this);
+        ps= new PongScore(0, 0);
+        pongPanel = new PongPanel(this, ps);
         pongPanel.getPreferredSize();
         add(pongPanel);
         pongPanel.setVisible(true);
         this.repaint();
         this.revalidate();
     }
+    
+//    public void resetPong()  {
+//        this.remove(pongPanel);
+//        add(pongPanel);
+//         pongPanel = new PongPanel(this);
+//        pongPanel.getPreferredSize();
+//        add(pongPanel);
+//        pongPanel.setVisible(true);
+//        this.repaint();
+//        this.revalidate();
+//    }
 
     @Override
     public void windowOpened(WindowEvent e) {
