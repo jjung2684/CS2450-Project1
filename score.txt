@@ -1,5 +1,5 @@
-540 op
-100 ABC
-90 CCC
-80 DDD
-70 EEE
+0 AB
+0 CD
+0 EF
+0 GH
+0 IJ
