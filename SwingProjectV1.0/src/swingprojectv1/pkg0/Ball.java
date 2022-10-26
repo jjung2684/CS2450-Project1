@@ -24,25 +24,29 @@ import javax.swing.JPanel;
 
 public class Ball {
 
-    private static final int BALL_RADIUS = 5;
-    Rectangle ball;
-    private int x = 0;
-    private int y = 0;
-    
-
-    private JPanel pongGame;
-    Paddle paddle_1 = new Paddle(pongGame, 160, 150,Color.WHITE);
-    Paddle paddle_2 = new Paddle(pongGame, 430, 150, Color.WHITE);
-    Image ballImg;
+    private static final int RADIUS=10;
+    private int x=0;
+    private int y=0;
+    private int xspeed=3;
+    private int yspeed=3;
+    private PongPanel game;
     Color color;
     private int xDirection;
     private int yDirection;
+    Rectangle ball;
+    int s1, s2;
 
-    public Ball(JPanel pongGame, int x, int y) {
-        this.pongGame = pongGame;
+  
+
+    public Ball(PongPanel game, Color color, int x, int y) {
+        this.game = game;
         this.color = color;
-        this.x = x;
+        this.game = game;
+	this.x = x;
         this.y = y;
+        s1 = game.ps.getP1();
+        s2 = game.ps.getP2();
+        
         Random rand = new Random(); //creats Random numbers  
         int randDirection = rand.nextInt(1);
         if (randDirection == 0) {
@@ -54,7 +58,8 @@ public class Ball {
             yRandDir -= 2;
         }
         setYDir(yRandDir);
-        ball = new Rectangle(x, y, 15, 15);
+	ball = new Rectangle(x, y, RADIUS*2, RADIUS*2);
+        
     }
 
     public void setXDir(int xDir) {
@@ -66,42 +71,45 @@ public class Ball {
         yDirection = yDir;
     }
 
-    public void move() {
-        PaddleCollision();
-//       
-        ball.x += xDirection;
-        ball.y += yDirection;
-        //Bounce the ball when edge is detected  
-        if (ball.x < 150) {
-            setXDir(+2);
-        }
-        if (ball.x > 435) {
-            setXDir(-2);
-        }
-        if (ball.y < 50) {
-            setYDir(+2);
-        }
-        if (ball.y > 285) {
-            setYDir(-2);
-        }
+    public void move() throws IOException {
+	if (x+xspeed<150) {
+//		xspeed=4;
+            game.ps.setP2(s2 += 10);
+            game.resetGame();
+	}
+	if (x+xspeed>435) {
+            game.ps.setP1(s1 += 10);
+		game.resetGame();
+	}
+		
+	if (y+yspeed<50) {
+		yspeed=4;
+	}
+		
+	if (y+yspeed>=285) {
+		yspeed=-4;
+	}
+        
+	if (isCollision()) {
+		xspeed=-xspeed;
+	}
+	x=x+xspeed;
+	y=y+yspeed;
     }
 
-    public void PaddleCollision() {
-        if (ball.intersects(paddle_2.paddle))
-        {
-            setXDir(-2);
-        }
-        if(ball.intersects(paddle_1.paddle))
-        {
-            setXDir(+2);
-        }
+    	
+    private boolean isCollision() {
+        return game.paddle_1.getBounds().intersects(getBounds())
+        || game.paddle_2.getBounds().intersects(getBounds());
+    
     }
-
-    public void draw(Graphics2D g) throws MalformedURLException, IOException {
-        URL urlBall = new URL("https://res.cloudinary.com/dt2autub1/image/upload/v1666675995/assets/ball_f77fzi.png"); //get ball image from the project folder  
-        ballImg = ImageIO.read(urlBall);
+    public void draw(Graphics2D g) {
         g.setColor(color);
-        g.drawImage(ballImg, this.ball.x, this.ball.y, null);
+        g.fillOval(x, y, 2*RADIUS, 2*RADIUS);
+    }
+    
+    public Rectangle getBounds() {
+	return new Rectangle(x, y, 2*RADIUS, 2*RADIUS);
     }
 
 }
