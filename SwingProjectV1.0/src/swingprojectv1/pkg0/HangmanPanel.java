@@ -267,7 +267,7 @@ public class HangmanPanel extends JPanel {
             // alphabetPanel.add(alphaButtonEnabler);
 
             this.add(skipButton);
-            skipButton.setBounds(490, 25, 75, 22);
+            skipButton.setBounds(510, 30, 75, 22);
 
             time();
             this.add(clockLabel);

@@ -87,8 +87,7 @@ public class SudokuPanel extends JPanel implements PropertyChangeListener, Actio
     private JPanel entryPanel1, entryPanel2, entryPanel3, entryPanel4,
             entryPanel5, entryPanel6, entryPanel7, entryPanel8, entryPanel9;
 
-    private JButton submitButton;
-    private JButton quitButton;
+    private JButton submitButton, solutionButton, quitButton;
     private JLabel clockLabel;
     private ArrayList<Integer> gameArray;
     private int[] solutionArray;
@@ -677,13 +676,27 @@ public class SudokuPanel extends JPanel implements PropertyChangeListener, Actio
 
         // add buttons
         submitButton = new JButton("Submit");
-        submitButton.setBounds(40, 325, 80, 20);
+        submitButton.setBounds(40, 325, 90, 25);
         submitButton.addActionListener(this);
         submitButton.setToolTipText("Submit Game and check for correct solution.");
         add(submitButton);
+        
+        solutionButton = new JButton("Solution");
+        solutionButton.setBounds(480, 290, 90, 25);
+        solutionButton.setToolTipText("See the solution.");
+        solutionButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                try {
+                    getSolution();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        add(solutionButton);
 
         quitButton = new JButton("Quit");
-        quitButton.setBounds(480, 325, 80, 20);
+        quitButton.setBounds(480, 325, 90, 25);
         quitButton.setToolTipText("Quit game and go back to home screen.");
         quitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
@@ -695,6 +708,7 @@ public class SudokuPanel extends JPanel implements PropertyChangeListener, Actio
             }
         });
         add(quitButton);
+
 
         // add clock
         Timer timer = new Timer(500, new ActionListener() {
@@ -930,6 +944,117 @@ public class SudokuPanel extends JPanel implements PropertyChangeListener, Actio
         }
 
     }
+      
+    private void getSolution() throws IOException {
+        entryField1.setValue(8); 
+        entryField2.setValue(3); 
+        entryField3.setValue(5);
+        
+        entryField4.setValue(4);
+        entryField5.setValue(1); 
+        entryField6.setValue(6);
+        
+        entryField7.setValue(9); 
+        entryField8.setValue(2); 
+        entryField9.setValue(7);
+        
+        entryField10.setValue(2); 
+        entryField11.setValue(9); 
+        entryField12.setValue(6); 
+        
+        entryField13.setValue(8);
+        entryField14.setValue(5); 
+        entryField15.setValue(7); 
+        
+        entryField16.setValue(4);
+        entryField17.setValue(3); 
+        entryField18.setValue(1);
+        
+        entryField19.setValue(4);
+        entryField20.setValue(1);
+        entryField21.setValue(7);
+        
+        entryField22.setValue(2);
+        entryField23.setValue(9);
+        entryField24.setValue(3);
+        
+        entryField25.setValue(6);
+        entryField26.setValue(5); 
+        entryField27.setValue(8);
+            
+        entryField28.setValue(5);
+        entryField29.setValue(6);
+        entryField30.setValue(9);
+        
+        entryField31.setValue(1);
+        entryField32.setValue(3);
+        entryField33.setValue(4);
+        
+        entryField34.setValue(7);
+        entryField35.setValue(8);
+        entryField36.setValue(2);
+            
+        entryField37.setValue(1);
+        entryField38.setValue(2);
+        entryField39.setValue(3);
+        
+        entryField40.setValue(6);
+        entryField41.setValue(7);
+        entryField42.setValue(8);
+        
+        entryField43.setValue(5);
+        entryField44.setValue(4);
+        entryField45.setValue(9);
+        
+        entryField46.setValue(7);
+        entryField47.setValue(4);
+        entryField48.setValue(8);
+        
+        entryField49.setValue(5);
+        entryField50.setValue(2);
+        entryField51.setValue(9);
+        
+        entryField52.setValue(1);
+        entryField53.setValue(6);
+        entryField54.setValue(3);
+            
+        entryField55.setValue(6);
+        entryField56.setValue(5);
+        entryField57.setValue(2);
+        
+        entryField58.setValue(7);
+        entryField59.setValue(8);
+        entryField60.setValue(1);
+        
+        entryField61.setValue(3);
+        entryField62.setValue(9);
+        entryField63.setValue(4);
+        
+        entryField64.setValue(9);
+        entryField65.setValue(8);
+        entryField66.setValue(1);
+        
+        entryField67.setValue(3);
+        entryField68.setValue(4);
+        entryField69.setValue(5);
+        
+        entryField70.setValue(2);
+        entryField71.setValue(7);
+        entryField72.setValue(6);
+        
+        entryField73.setValue(3);
+        entryField74.setValue(7);
+        entryField75.setValue(4);
+        
+        entryField76.setValue(9);
+        entryField77.setValue(6);
+        entryField78.setValue(2);
+        
+        entryField79.setValue(8);
+        entryField80.setValue(1);
+        entryField81.setValue(5);
+    }
+
     
     
     //Helper method to resort HashMap for rewrite

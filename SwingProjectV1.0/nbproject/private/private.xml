@@ -3,10 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/barre/projects/cs2450/CS2450-Project1/SwingProjectV1.0/src/swingprojectv1/pkg0/PongPanel.java</file>
-            <file>file:/C:/Users/barre/projects/cs2450/CS2450-Project1/SwingProjectV1.0/src/swingprojectv1/pkg0/MainFrame.java</file>
-            <file>file:/C:/Users/barre/projects/cs2450/CS2450-Project1/SwingProjectV1.0/src/swingprojectv1/pkg0/Paddle.java</file>
-            <file>file:/C:/Users/barre/projects/cs2450/CS2450-Project1/SwingProjectV1.0/src/swingprojectv1/pkg0/Ball.java</file>
+            <file>file:/Users/tommy/NetBeansProjects/CS2450-Project1/SwingProjectV1.0/src/swingprojectv1/pkg0/MainFrame.java</file>
+            <file>file:/Users/tommy/NetBeansProjects/CS2450-Project1/SwingProjectV1.0/src/swingprojectv1/pkg0/Ball.java</file>
+            <file>file:/Users/tommy/NetBeansProjects/CS2450-Project1/SwingProjectV1.0/src/swingprojectv1/pkg0/SudokuPanel.java</file>
+            <file>file:/Users/tommy/NetBeansProjects/CS2450-Project1/SwingProjectV1.0/src/swingprojectv1/pkg0/Paddle.java</file>
+            <file>file:/Users/tommy/NetBeansProjects/CS2450-Project1/SwingProjectV1.0/src/swingprojectv1/pkg0/SwingProjectV1.java</file>
         </group>
     </open-files>
 </project-private>

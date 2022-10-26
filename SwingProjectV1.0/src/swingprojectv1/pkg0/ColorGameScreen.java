@@ -194,7 +194,7 @@ public class ColorGameScreen extends JPanel implements ActionListener {
 
         colorPrompt.setBounds(colorPromptRect);
         scoreLabel.setBounds(scoreRect);
-        skipButton.setBounds(skipRect);
+        skipButton.setBounds(510, 30, 75, 22);
 
         // Randomize Pos
     }
