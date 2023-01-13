@@ -12,3 +12,4 @@ Ly Hoang Rivera - Credits screen
 
 Tommy James - High Scores Screen
 ![Screenshot 2023-01-12 220233](https://user-images.githubusercontent.com/89826196/212251433-88aec574-a6de-45b6-b51d-4fcd337fac24.png)
+![Screenshot 2023-01-12 220253](https://user-images.githubusercontent.com/89826196/212251568-28ce7a45-fbeb-42b7-b565-43518344980b.png)
